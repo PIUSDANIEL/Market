@@ -1,0 +1,182 @@
+
+            @media (max-width: 767.98px){
+                .bigscreen{
+                    display:none;
+                }
+
+                .mycarosel{
+                    height:150px ;
+                }
+
+                .mycard{
+                    width: 6rem;
+                }
+            }
+
+            @media (min-width: 768px){
+                .small-screen{
+                    display:none;
+                }
+
+                .mycarosel{
+                    height:300px ;
+                }
+
+                .mycard{
+                    width: 6rem;
+                }
+            }
+
+
+            @media (min-width: 992px){
+                .mycarosel{
+                    height:400px ;
+                }
+            }
+
+            .category-text{
+                font-size:11px ;
+            }
+
+            .categimg{
+                height:25px;
+                width: 25px;
+                margin:auto ;
+            }
+
+            .cardcategory{
+
+            width: 50px;
+            }
+
+        .cardcategoryall{
+                margin-top: 16px;
+                background-color: rgb(255, 210, 175);
+            }
+
+            .category-text{
+                font-size:9px ;
+                font-weight:600;
+            }
+
+            .bgcardimg{
+                height:10rem;
+            }
+
+            .productcard{
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .registercol{
+                border-radius: 20px;
+           }
+
+           @media (min-width: 768px) and (max-width: 991.98px){
+                .registerrow{
+                    width: 100%;
+                }
+            }
+
+
+            @media (max-width: 767.98px){
+
+                .mmm{
+                    height:150px ;
+                    border-radius: 20px;
+                }
+
+                .registerrow{
+                    width: 100%;
+                }
+
+                .theowlbig{
+                    width: 10rem;
+                    height: 10rem;
+                }
+
+                .after-header{
+                    margin-top: 23%;
+                }
+
+            }
+
+            @media (min-width: 768px){
+                .mmm{
+                    height:300px ;
+                    border-radius: 20px;
+                }
+
+                .registerrow{
+                    width: 75%;
+                }
+
+                .after-header{
+                    margin-top: 4rem;
+                }
+            }
+
+           .offcanvascategimg{
+                height:25px;
+                width: 25px;
+           }
+
+           @media (min-width: 992px) and (max-width: 1400px){
+                .bigcardforbigscreen{
+
+                    width: 30%;
+                }
+
+                .thediv{
+                    width: 48%;
+                }
+
+                .categorizep{
+                    margin-top: 60px;
+                }
+           }
+
+           @media (min-width: 768px) and (max-width: 991.98px){
+                .bigcardforbigscreen{
+
+                    width: 45%;
+                }
+
+                .thediv{
+                    width: 48%;
+                }
+
+                .categorizep{
+                    margin-top: 60px;
+                }
+           }
+
+           @media (max-width: 767.98px){
+            .categorizep{
+                margin-top: 85px;
+            }
+           }
+
+           .bringitdownreglog{
+                 margin-top: 100px;
+           }
+
+           .bringitdown{
+            margin-top: 60px;
+           }
+
+            .money{
+                font-weight:800;
+                font-size:larger;
+            }
+
+
+
+
+
+
+
+
+
+

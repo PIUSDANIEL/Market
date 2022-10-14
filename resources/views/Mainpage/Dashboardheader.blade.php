@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!--jquery--->
   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
-
+  <link rel="stylesheet" href="{{ asset('css/market.css') }}">
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="{{ asset('../../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 
@@ -387,6 +387,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </li>
           @endif
 
+          @if (Auth::guard('admin')->user())
+            <li class="nav-item">
+                <a href="{{ route('admin.categorysub') }}" class="nav-link text-dark" style="cursor:pointer;" >
+                <i class="fa fa-list-alt nav-icon " aria-hidden="true"></i>
+         
+                <p>
+                    Add Category
+                </p>
+                </a>
+            </li>
+          @endif
+
           @if (Auth::guard('seller')->user())
                 <li class="nav-item">
                     <a href="{{ route('seller.dashboard') }}" class="nav-link text-dark">
@@ -434,6 +446,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                 </li>
           @endif
+
+          
 
 
         </ul>

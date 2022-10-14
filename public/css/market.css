@@ -122,7 +122,7 @@
                 width: 25px;
            }
 
-           @media (min-width: 992px) and (max-width: 1400px){
+           @media (min-width: 990px) and (max-width: 1400px){
                 .bigcardforbigscreen{
 
                     width: 30%;
@@ -134,6 +134,13 @@
 
                 .categorizep{
                     margin-top: 60px;
+                }
+
+                .categorizd{
+                    width: 3%;
+                }
+                .productz{
+                    width: calc(100%/5.16);
                 }
            }
 
@@ -150,13 +157,34 @@
                 .categorizep{
                     margin-top: 60px;
                 }
+
+                .categorizd{
+                    width: 3%;
+                }
+
+                .productz{
+                    width: calc(100%/3.1);
+                }
            }
 
            @media (max-width: 767.98px){
             .categorizep{
                 margin-top: 85px;
             }
+
+            .categorizd{
+                width: 6%;
+            }
+
+            .productz{
+                width: calc(100%/2.1);
+            }
+
            }
+
+
+
+
 
            .bringitdownreglog{
                  margin-top: 100px;
@@ -171,6 +199,8 @@
                 font-size:larger;
             }
 
+           
+            
 
 
 

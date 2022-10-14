@@ -117,7 +117,6 @@
                   <h6 class="card-title">Products Uploaded</h6>
                   <h6 class="card-title p-1 rounded float-right" style="cursor: pointer; background-color:rgba(136, 167, 167, 0.156);" data-toggle="modal" data-target="#modal-editor">Add product <i class="fa fa-plus text-info" aria-hidden="true"></i></h6>
                 </div>
-                <div> <h6 class="card-title mx-auto refresh rounded p-1" style="cursor: pointer; background-color:rgba(136, 167, 167, 0.156); ">refresh table <i class="fa fa-refresh text-info" aria-hidden="true"></i></h6></div>
                 <!-- /.card-header -->
                 <div class="card-body py-2">
                   <table id="example1" class="table table-bordered table-responsive table-striped  w-100">

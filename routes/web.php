@@ -104,6 +104,20 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         Route::post('/editorRegister', [Editorcontroller::class,'editorRegister'])->name('editorRegister');
 
+        Route::view('/categorysub', 'Admin.Categorysub')->name('categorysub');
+
+        Route::post('/addcategory', [Admincontroller::class,'addcategory'])->name('addcategory');
+
+        Route::get('/getcategory', [Admincontroller::class,'getcategory'])->name('getcategory');
+
+        Route::post('/editcategory', [Admincontroller::class,'editcategory'])->name('editcategory');
+
+        Route::post('/addsubcategory', [Admincontroller::class,'addsubcategory'])->name('addsubcategory');
+
+        Route::post('/editsubcategory', [Admincontroller::class,'editsubcategory'])->name('editsubcategory');
+
+        Route::get('/getsubcategory', [Admincontroller::class,'getsubcategory'])->name('getsubcategory');
+
         Route::post('/adminLogout', [Admincontroller::class,'adminLogout'])->name('adminLogout');
 
         Route::view('/dashboard', 'Admin.Dashboard')->name('dashboard');

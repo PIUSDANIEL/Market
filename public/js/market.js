@@ -12,11 +12,9 @@ $(document).ready(function () {
 
             if(response.status === 200){
 
-
-               // $('.name').val(response.cat);
                 $.each(response.cat, function (key, category) {
                      $('#categories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
-
+                     $('#editcategories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
                 });
 
             }
@@ -55,30 +53,7 @@ $(document).ready(function () {
     });
 
 
-     //GET PRODUCT CATEGORY FOR EDIT
-     $.ajax({
-        type: "Get",
-        url: "/productuploadcat",
-        dataType: "json",
-        contentType:"application/json",
-        processData:false,
-        Cache:false,
-        async:true,
-        success: function (response) {
-
-            if(response.status === 200){
-
-
-               // $('.name').val(response.cat);
-                $.each(response.cat, function (key, category) {
-                     $('#editcategories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
-
-                });
-
-            }
-
-        }
-    });
+    
 
     //GET PRODUCT SUB_CATEGORY FOR EDIT
     var categ;
@@ -228,6 +203,81 @@ $(document).ready(function () {
         }]
 
     });
+
+     //GET ALL CATEGORY
+     $('#category').DataTable({
+        ajax:{
+            url:"getcategory",
+            dataSrc: 'categories',
+        },
+        responsive: true,
+        paging: true,
+        lengthChange: true,
+        info: true,
+        autoWidth: false,
+        searching:true,
+        scrollY:600,
+        scrollX:600,
+        ordering:true,
+        columns:[
+            { data:'categoryname',
+                name:'categoryname'
+            },
+            { data: function (row){
+                return '<i class="fa fa-edit text-info" data-toggle="modal" data-target="#modal-edit-category" onclick="getcategory('+row.id+',\''+row.categoryname+'\');" aria-hidden="true"></i>'
+            },
+                name: 'id'
+            }
+        ]
+     });
+
+     //GET ALL SUB CATEGORY
+    $('#sub-category').DataTable({
+        ajax:{
+            url:"getsubcategory",
+            dataSrc: 'message',
+        },
+        responsive: true,
+        paging: true,
+        lengthChange: true,
+        info: true,
+        autoWidth: false,
+        searching:true,
+        scrollY:600,
+        scrollX:600,
+        ordering:true,
+        columns:[
+            { data:'sub_categoryname',
+             name:'sub_categoryname'
+            },
+            { data: function (row){
+                return '<i class="fa fa-edit text-info" data-toggle="modal" data-target="#modal-edit-subcategory" onclick="editsubcategory('+row.id+',\''+row.sub_categoryname+'\');" aria-hidden="true"></i>'
+            },
+                name: 'id'
+            },
+            { data: 'image',
+              name:'image'
+            },
+            { data: 'categoryname',
+            name:'categoryname'
+            },
+            
+           
+
+        ],
+        columnDefs:
+        [{
+            'targets':2,
+            'data':'image',
+            'render': function(data,type,row,meta){
+                    return '<img src="'+ data +'" class="mx-auto rounded" height="40" width="50">'
+
+            }
+        }]
+
+    });
+
+     
 
 
 
@@ -607,4 +657,179 @@ jQuery(function(){
      });
  });
 
+    //GET CATEGORY FOR EDIT
+ function getcategory(id,cat){
+
+    $('#editcategoryname').val(cat);
+
+    $('#catid').val(id);
+ }
+
+ //ADD CATEGORY
+ $('#addcategory').submit(function (e) {
+    e.preventDefault();
+
+    $('.hhhb').html('');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+
+    });
+
+    var dat = new FormData($('#addcategory')[0]);
+
+    //console.log(data);
+
+    $.ajax({
+        type: "POST",
+        url: "addcategory",
+        data: dat,
+        contentType:false,
+        processData:false,
+        success: function (response) {
+
+            if(response.status === 200){
+                swal({
+                    'title':response.message,
+                    'icon': 'success',
+                    'timer': 1000
+                });
+
+                $('#category').DataTable().ajax.reload();
+
+               
+                $('#categories').html('');
+                $('#editcategories').html('');
+
+                    //THIS IS TO GET CATEGORY WHEN IT IS UPDATED
+                        $.ajax({
+                            type: "Get",
+                            url: "/productuploadcat",
+                            dataType: "json",
+                            contentType:"application/json",
+                            processData:false,
+                            Cache:false,
+                            async:true,
+                            success: function (response) {
+
+                                if(response.status === 200){
+
+                                    $.each(response.cat, function (key, category) {
+                                        $('#categories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
+                                        $('#editcategories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
+
+                                    });
+
+                                }
+
+                            }
+                        });
+
+            }else{
+                //console.log(response.message);
+
+                $.each(response.message, function (key, validateerror) {
+                    $('.hhhb').append('<li class="" style="color: red;">'+validateerror +'</li>');
+               });
+            }
+        }
+    });
+
+
+ });
+
+ //EDIT CATEGORY
+ $('#editcategory').submit(function (e) {
+    e.preventDefault();
+
+    $('.editcat').html('');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+
+    });
+
+    var dat = new FormData($('#editcategory')[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "editcategory",
+        data: dat,
+        contentType:false,
+        processData:false,
+        success: function (response) {
+
+            if(response.status === 200){
+                swal({
+                    'title':response.message,
+                    'icon': 'success',
+                    'timer': 1000
+                });
+
+                $('#category').DataTable().ajax.reload();
+
+            }else{
+
+                $.each(response.message, function (key, validateerror) {
+                    $('.editcat').append('<li class="" style="color: red;">'+validateerror +'</li>');
+               });
+            }
+        }
+    });
+
+
+ });
+
+ //ADD SUB CATEGORY
+ $('#addsubcategory').submit(function (e) {
+    e.preventDefault();
+
+    $('.sub').html('');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+
+    });
+
+    var dat = new FormData($('#addsubcategory')[0]);
+
+    //console.log(data);
+
+    $.ajax({
+        type: "POST",
+        url: "addsubcategory",
+        data: dat,
+        contentType:false,
+        processData:false,
+        success: function (response) {
+
+            if(response.status === 200){
+                swal({
+                    'title':response.message,
+                    'icon': 'success',
+                    'timer': 1000
+                });
+
+                $('#sub-category').DataTable().ajax.reload();
+
+            }else{
+                $.each(response.message, function (key, validateerror) {
+                    $('.sub').append('<li class="" style="color: red;">'+validateerror +'</li>');
+               });
+            }
+        }
+    });
+
+
+ });
+
+ function editsubcategory(id,sub){
+    alert(id);
+ }
 

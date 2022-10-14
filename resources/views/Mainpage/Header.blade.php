@@ -58,7 +58,7 @@
 
     </head>
     <body class="antialiased">
-        <div class="container-fluid">
+        <div class="container-fluid ">
 
                 {{-- -bigger screen --}}
 

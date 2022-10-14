@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('sub_categoryname');
             $table->integer('categoryid');
+            $table->string('image');
             $table->integer('deleted')->default(0);
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();

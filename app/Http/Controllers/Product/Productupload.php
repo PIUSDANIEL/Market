@@ -75,7 +75,7 @@ class Productupload extends Controller
                         if($request->file('main_image')->isValid()){
 
                             $fileDestination = 'public/images';
-                            $extention = $request->file('main_image')->getClientOriginalExtension();
+                            $extention = $request->file('main_image')->extension();
                         // $imagename = $main_image->getClientOriginalName();
                             $main_image_name = uniqid().'.'.$extention;
 
@@ -93,7 +93,7 @@ class Productupload extends Controller
                         if($images->isValid()){
 
                             $fileDestination = 'public/images';
-                            $extention = $images->getClientOriginalExtension();
+                            $extention = $images->extension();
                         // $imagename = $images->getClientOriginalName();
                             $name = uniqid().'.'.$extention;
 
@@ -168,7 +168,7 @@ class Productupload extends Controller
                     if($request->file('main_image')->isValid()){
 
                         $fileDestination = 'public/images';
-                        $extention = $request->file('main_image')->getClientOriginalExtension();
+                        $extention = $request->file('main_image')->extension();
                     // $imagename = $main_image->getClientOriginalName();
                         $main_image_name_edit = uniqid().'.'.$extention;
 
@@ -193,7 +193,7 @@ class Productupload extends Controller
                     if($editimages->isValid()){
 
                         $fileDestination = 'public/images';
-                        $extention = $editimages->getClientOriginalExtension();
+                        $extention = $editimages->extension();
                     // $imagename = $images->getClientOriginalName();
                         $name_edit = uniqid().'.'.$extention;
 
@@ -510,6 +510,8 @@ class Productupload extends Controller
 
         return view('products');
    }
+
+  
 
 
 

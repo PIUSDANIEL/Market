@@ -2,10 +2,13 @@
 
                 {{-- -THESE ARE ALL FOR SMALL SCREE --}}
 
+               
 
-                @foreach ($men as $mens )
-                    <p>{{ $mens->productname }}</p>
+
+                @foreach ($category as $categories)
+                    <h1 class="mt-5">{{ $categories->id }}</h1>
                 @endforeach
+                
                 {{-- first category --}}
                 <div class="table-responsive after-header small-screen ">
                     <table class="table  m-0">

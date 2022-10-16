@@ -17,7 +17,7 @@
 
                 @endif
 
-                <div class="col-sm-12 col-md-11 col-lg-8 shadow  registercol mx-auto" >
+                <div class="col-12  shadow  registercol mx-auto" >
 
 
 
@@ -42,11 +42,11 @@
 
 
 
-                <form action="{{ route('admin.editorRegister') }}" method="post" class="row g-3 needs-validation" novalidate>
+                <form action="{{ route('admin.editorRegister') }}" method="post" class="row  g-3 needs-validation" novalidate>
 
                         @csrf
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 mt-2">
                             <label for="firstname" class="form-label">First name</label>
                             <input type="text" name="firstname" class="form-control form-control-sm" id="firstname" value="{{ old('firstname') }}" required>
                             <div class="valid-feedback">
@@ -54,7 +54,7 @@
                             </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 mt-2">
                             <label for="lastname" class="form-label">Last name</label>
                             <input type="text" name="lastname" class="form-control form-control-sm" id="lastname" value="{{ old('lastname') }}" required>
                             <div class="valid-feedback">
@@ -62,7 +62,7 @@
                             </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 mt-2">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" name="email" value="{{ old('email') }}" class="form-control form-control-sm" id="email" required>
                             <div class="invalid-feedback">
@@ -70,7 +70,7 @@
                             </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 mt-2">
                                 <label for="phonenumber" class="form-label">Phone number</label>
                                 <input type="number" name="phonenumber" value="{{ old('phonenumber') }}" class="form-control form-control-sm" id="phonenumber" >
                                 <div class="invalid-feedback">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 mt-2">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" name="password" value="" class="form-control form-control-sm" id="password" required>
                                 <div class="invalid-feedback">
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-6 mt-2">
                                 <label for="confirmpassword" class="form-label">Confirm password</label>
                                 <input type="password" name="confirmpassword" value="" class="form-control form-control-sm" id="confirmpassword" required>
                                 <div class="invalid-feedback">
@@ -96,7 +96,7 @@
 
 
 
-                            <div class="col-12">
+                            <div class="col-12 mt-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="terms" value="1" id="terms" required>
                                 <label class="form-check-label" for="terms">
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             </div>
-                            <div class="col-12 ">
+                            <div class="col-12 mt-2">
                             <button class="btn btn-info btn-sm float-right m-2 text-white"  type="submit">Submit</button>
                             </div>
                 </form>

@@ -15,6 +15,7 @@ $(document).ready(function () {
                 $.each(response.cat, function (key, category) {
                      $('#categories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
                      $('#editcategories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
+                     $('#categoryeditsub').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
                 });
 
             }
@@ -53,7 +54,7 @@ $(document).ready(function () {
     });
 
 
-    
+
 
     //GET PRODUCT SUB_CATEGORY FOR EDIT
     var categ;
@@ -235,7 +236,7 @@ $(document).ready(function () {
     $('#sub-category').DataTable({
         ajax:{
             url:"getsubcategory",
-            dataSrc: 'message',
+            dataSrc: 'subcategory',
         },
         responsive: true,
         paging: true,
@@ -251,7 +252,7 @@ $(document).ready(function () {
              name:'sub_categoryname'
             },
             { data: function (row){
-                return '<i class="fa fa-edit text-info" data-toggle="modal" data-target="#modal-edit-subcategory" onclick="editsubcategory('+row.id+',\''+row.sub_categoryname+'\');" aria-hidden="true"></i>'
+                return '<i class="fa fa-edit text-info" data-toggle="modal" data-target="#modal-edit-subcategory" onclick="editsubcategory('+row.id+',\''+row.sub_categoryname+'\',\''+row.image+'\');" aria-hidden="true"></i>'
             },
                 name: 'id'
             },
@@ -261,8 +262,8 @@ $(document).ready(function () {
             { data: 'categoryname',
             name:'categoryname'
             },
-            
-           
+
+
 
         ],
         columnDefs:
@@ -277,7 +278,7 @@ $(document).ready(function () {
 
     });
 
-     
+
 
 
 
@@ -699,9 +700,10 @@ jQuery(function(){
 
                 $('#category').DataTable().ajax.reload();
 
-               
+
                 $('#categories').html('');
                 $('#editcategories').html('');
+                $('#categoryeditsub').html('');
 
                     //THIS IS TO GET CATEGORY WHEN IT IS UPDATED
                         $.ajax({
@@ -719,6 +721,7 @@ jQuery(function(){
                                     $.each(response.cat, function (key, category) {
                                         $('#categories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
                                         $('#editcategories').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
+                                        $('#categoryeditsub').append("<option value='"+category.id+"'>"+category.categoryname+"</option>");
 
                                     });
 
@@ -829,7 +832,116 @@ jQuery(function(){
 
  });
 
- function editsubcategory(id,sub){
-    alert(id);
+ // GET SUB CATEGORY TO BE EDITED
+ function editsubcategory(id,sub,imag){
+
+    var id =id;
+    var sub =sub;
+    var imag =imag;
+
+    $('.subimage').html('');
+
+    if(imag !== ''){
+        $('.subimage').append('<div class="card bb p-0" style="height:70px; width:70px;"><img src="'+ imag +'" class="mx-auto rounded"'
+        +' height="70" width="70"> <div class="card-body  py-3 "><p class="card-title text-danger  text-center subimagedata  mt-n3"'
+        +' onclick="subdeleteimage()" id="" style="cursor:pointer;" data-image="'+imag+'" data-id="'+id+'">delete</p></div></div>');
+
+        $('.subimsgechange').addClass('d-none');
+        $('.subimage').removeClass('d-none');
+    }else{
+        $('.subimage').addClass('d-none');
+        $('.subimsgechange').removeClass('d-none');
+    }
+
+   $('#subeditids').val(id);
+   $('#oldimage').val(imag);
+   $('#editsubcategoryname').val(sub);
+
+
  }
+
+
+//DELETE SUBCATEGORY IMAGE
+function subdeleteimage(){
+
+    var id =  $('.subimagedata').attr('data-id');
+    var image =  $('.subimagedata').attr('data-image');
+
+
+      $.ajax({
+          type: "Post",
+          url: "deletesubcategoryimage",
+          data:{
+              id: id,
+              image:image
+          },
+
+          success: function (response) {
+              if(response.status === 200){
+
+                $('.subimage').addClass('d-none');
+                $('.subimsgechange').removeClass('d-none');
+
+                  swal({
+                      'title':response.message,
+                      'icon': 'success',
+                      'timer': 1000
+                  });
+
+
+              }else{
+
+                  swal({
+                      'title':response.message,
+                      'icon': 'error',
+                      'timer': 1000
+                  });
+              }
+          }
+      });
+}
+
+//EDIT SUB CATEGORY
+$('#editsubcategory').submit(function (e) {
+    e.preventDefault();
+
+    $('.subedit').html('');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+
+    });
+
+    var dat = new FormData($('#editsubcategory')[0]);
+
+    $.ajax({
+        type: "POST",
+        url: "editsubcategory",
+        data: dat,
+        contentType:false,
+        processData:false,
+        success: function (response) {
+
+            if(response.status === 200){
+                swal({
+                    'title':response.message,
+                    'icon': 'success',
+                    'timer': 1000
+                });
+
+                $('#sub-category').DataTable().ajax.reload();
+
+            }else{
+
+                $.each(response.message, function (key, validateerror) {
+                    $('.subedit').append('<li class="" style="color: red;">'+validateerror +'</li>');
+               });
+            }
+        }
+    });
+
+
+ });
 

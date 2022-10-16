@@ -301,11 +301,17 @@
 
 
 
-                        <form action="{{ route('admin.editsubcategory') }}" method="POST" id="editsubcategory" enctype="multipart/form-data"  class="row g-3" >
+                        <form  id="editsubcategory" enctype="multipart/form-data"  class="row g-3" >
 
                                 @csrf
 
-                            <input type="text" name="id" value="">
+                            <input type="hidden" name="id" id="subeditids" value="">
+
+                            <input type="hidden" name="oldimage" id="oldimage" value="">
+
+                            <div class="col-11 mx-auto mt-2 subimage">
+
+                            </div>
 
                             <div class="col-11 mx-auto mt-2">
                                     <label for="editsubcategoryname" class="form-label">Sub category</label>
@@ -313,7 +319,7 @@
 
                             </div>
 
-                            <div class="col-11 mx-auto mt-2">
+                            <div class="col-11 mx-auto mt-2 subimsgechange ">
                                 <label for="editimage" class="form-label">Image</label>
                                 <input class="form-control" type="file" name="editimage" id="editimage" value="">
                             </div>
@@ -321,8 +327,8 @@
 
                             <div class=" col-11 mx-auto mt-2">
                                 <label for="category">Category</label>
-                                <select class="custom-select custom-select-sm catego" name="category" id="categories">
-                                    <option selected>Select one</option>
+                                <select class="custom-select custom-select-sm catego" name="category" id="categoryeditsub">
+                                    <option selected></option>
                                 </select>
 
                             </div>

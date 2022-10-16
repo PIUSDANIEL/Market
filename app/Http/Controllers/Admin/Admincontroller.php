@@ -8,6 +8,7 @@ use App\Models\Sub_category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class Admincontroller extends Controller
@@ -52,21 +53,14 @@ class Admincontroller extends Controller
 
     public function getsubcategory(){
 
-        $sub_cat = DB::table('sub_categories')
-                ->join('categories','sub_categories.categoryid','=','categories.id')
+        $sub_cat = DB::table('categories')
+                ->join('sub_categories','sub_categories.categoryid','=','categories.id')
                 ->get();
-        if($sub_cat->count() > 0){
-            return response()->json([
-                'status'=>200,
-                'message'=> $sub_cat
-            ]);
-
-        }else{
 
             return response()->json([
-                'message'=>'No record found!'
+                'subcategory'=>$sub_cat
             ]);
-        }
+
     }
 
 
@@ -192,14 +186,18 @@ class Admincontroller extends Controller
 
     }
 
-    public function editsubcategory(Request $req){
 
-        $val = Validator::make($req->only('id','editsubcategoryname','editimage','category'),[
+
+    public function editsubcategory(Request $requ){
+
+        $val = Validator::make($requ->only('id','editsubcategoryname','editimage','category','oldimage'),[
             'id' =>'required|integer',
             'editsubcategoryname'=>'required|regex:/^[a-zA-Z ]+$/u',
-            'editimage'=>'required|image|mimes:png,jpg,jpeg,gif,svg|max:2048',
+            'editimage'=>'nullable|image|mimes:png,jpg,jpeg,gif,svg|max:2048',
             'category'=>'required|integer'
         ]);
+
+
 
         if( $val->fails()){
             return response()->json([
@@ -207,12 +205,83 @@ class Admincontroller extends Controller
                 'message'=>  $val->errors()
             ]);
         }else{
+
+            if( $requ->hasFile('editimage')){
+
+                if( $requ->file('editimage')->isValid()){
+
+                    $fileDestination = 'public/images';
+                    $extention =  $requ->file('editimage')->extension();
+
+                    $image_name_edit = uniqid().'.'.$extention;
+
+                    $path =  $requ->file('editimage')->move( $fileDestination, $image_name_edit);
+
+                    $new_image = '/public/images/'.$image_name_edit;
+                }
+
+
+            }
+
+            if( $requ->File('editimage') == null){
+
+                $new_image =  $requ->oldimage;
+            }
+
+
+
+             DB::table('sub_categories')
+                     ->where('id', $requ->id)
+                    ->update([
+                        'sub_categoryname' =>$requ->editsubcategoryname,
+                        'categoryid' =>$requ->category,
+                        'image' => $new_image
+                    ]);
+
+
+
+
+
             return response()->json([
                 'status'=>200,
-                'message'=> $req->editsubcategoryname.'edited successfully!'
+                'message'=> $requ->editsubcategoryname.'  edited successfully!'
             ]);
         }
     }
+
+
+
+    public function deletesubcategoryimage(Request $req){
+
+        $validate = validator::make($req->only('id','image'),[
+              'id' => 'required|integer',
+        ]);
+
+       // dd( $req->image);
+
+      if($validate->fails()){
+          return response()->json([
+              'status'=> 400,
+              'message'=>'error! contact the technical team'
+          ]);
+      }else{
+          Sub_category::where('id', $req->id)->update(['image' => '']);
+
+
+          if(File::exists(public_path($req->image))){
+
+              File::delete(public_path($req->image));
+          }
+
+          return response()->json([
+              'status'=> 200,
+              'message'=> 'image deleted successfully'
+          ]);
+      }
+
+
+
+  }
 
 
 

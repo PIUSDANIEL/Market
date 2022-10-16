@@ -13,6 +13,5 @@ class Sub_category extends Model
         'sub_categoryname',
         'categoryid',
         'image'
-
     ];
 }

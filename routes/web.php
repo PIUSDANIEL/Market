@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::get('/',[Productupload::class,'product'])->name('/');
 
+//Route::get('categories',[Productupload::class,'categories'])->name('categories');
+
 Route::get('products/{cat}',[Productupload::class,'products'])->name('products');
 
 Route::post('featured',[Productupload::class,'featured'])->name('featured');
@@ -115,6 +117,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('/addsubcategory', [Admincontroller::class,'addsubcategory'])->name('addsubcategory');
 
         Route::post('/editsubcategory', [Admincontroller::class,'editsubcategory'])->name('editsubcategory');
+
+        Route::post('/deletesubcategoryimage', [Admincontroller::class,'deletesubcategoryimage'])->name('deletesubcategoryimage');
 
         Route::get('/getsubcategory', [Admincontroller::class,'getsubcategory'])->name('getsubcategory');
 

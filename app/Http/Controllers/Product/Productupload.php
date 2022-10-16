@@ -413,15 +413,32 @@ class Productupload extends Controller
     }
 
     public function product(){
+       /*
+        $category = DB::table('categories')->select('id','categoryname')->get();
 
-        $men = DB::table('categories')
-                        ->join('products','categories.id','=','products.categories')
-                        ->where('categories.id','=',2)
-                        ->where('products.deleted', '=', 0)
-                        ->where('products.featured', '=', 1)
-                        ->limit(4)->get();
+        $decod = json_decode($category,true);
+    
+        for($i = 0; $i < count($decod); $i++){
+                $id = $decod[$i]['id'];
 
-                        return view('welcome', ['men' => $men]) ;
+                $sub_category = DB::table('sub_categories')->where('categoryid',$id)
+                ->select('id')
+                ->get();
+
+                $decod[$i]['subcat'] = $sub_category;
+        }
+    
+            $cat = $decod;
+    
+        return view('welcome', ['category'=>$cat]) ;
+        */
+
+        $category = DB::table('categories')
+                ->leftjoin('sub_categories','sub_categories.categoryid','=','categories.id')
+                ->get();
+
+         return view('welcome', ['category'=> $category]) ;
+           
     }
 
     public function allproduct(){
@@ -509,6 +526,11 @@ class Productupload extends Controller
    public function products(){
 
         return view('products');
+   }
+
+   public function categories(){
+        
+
    }
 
   

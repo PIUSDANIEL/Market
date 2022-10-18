@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/',[Productupload::class,'product'])->name('/');
 
-//Route::get('categories',[Productupload::class,'categories'])->name('categories');
+Route::get('headerproduct',[Productupload::class,'headerproduct'])->name('headerproduct');
 
 Route::get('products/{cat}',[Productupload::class,'products'])->name('products');
 

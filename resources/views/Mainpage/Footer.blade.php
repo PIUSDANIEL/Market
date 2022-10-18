@@ -2,18 +2,12 @@
     <div class="row footer mt-3 " style="background-color:#6b7280 ;">
 
         {{-- DETAILS MODAL --}}
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
-
         <!-- Modal -->
-        <div class="modal fade rounded w-100" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade rounded w-100" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
             <div class="modal-dialog  modal-dialog-scrollable modal-xl rounded">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <h5 class="modal-title" id="detailsModalLabel"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

@@ -145,7 +145,7 @@ $(document).ready(function () {
 
 
 
-    //GET ALL PRODUCT
+    //GET ALL PRODUCT FEATURED AND FLASH
     $('#mm').DataTable({
         ajax:{
             url:"/allproduct",
@@ -586,6 +586,7 @@ function deletemainimage(){
                     });
 
 
+                    $('#example1').DataTable().ajax.reload();
 
                     getproduct();
 

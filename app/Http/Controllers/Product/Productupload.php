@@ -16,6 +16,7 @@ class Productupload extends Controller
 {
     public function uploadproduct(Request $request){
 
+     
 
             $validate = validator::make($request->all(),[
                 'productname' => 'required|string',
@@ -30,7 +31,7 @@ class Productupload extends Controller
                 'search'      => 'required|string',
                 'main_image'      => 'required',
                 'main_image.*'    => 'image|mimes:jpeg,jpg,png,svg,gif|max:2048',
-                'images'      => 'nullable',
+                'images'      => 'required',
                 'images.*'      => 'image|mimes:jpeg,jpg,png,svg,gif|max:2048',
                 'uploader'    => 'required|string',
                 'condition'   => 'nullable|string',
@@ -41,6 +42,7 @@ class Productupload extends Controller
 
             ]);
 
+           
 
             if($validate->fails()){
 
@@ -87,7 +89,7 @@ class Productupload extends Controller
 
                 }
 
-
+                    
                 if($request->hasFile('images')){
                     foreach($request->file('images') as $images){
                         if($images->isValid()){
@@ -413,32 +415,32 @@ class Productupload extends Controller
     }
 
     public function product(){
-       /*
-        $category = DB::table('categories')->select('id','categoryname')->get();
+     
+        $prod =  DB::table('categories')->select('id','categoryname')->get();
+        $products = json_decode($prod,true);
 
-        $decod = json_decode($category,true);
-    
-        for($i = 0; $i < count($decod); $i++){
-                $id = $decod[$i]['id'];
+        for($i = 0; $i < count( $products); $i++){
+            $id =   $products[$i]['id'];
 
-                $sub_category = DB::table('sub_categories')->where('categoryid',$id)
-                ->select('id')
-                ->get();
+            $product =  DB::table('products')
+                        ->where('categories',$id)
+                        ->where('deleted', 0)
+                        ->where('featured', 1)
+                        ->get();
 
-                $decod[$i]['subcat'] = $sub_category;
+            $products[$i]['product'] = $product;
         }
     
-            $cat = $decod;
-    
-        return view('welcome', ['category'=>$cat]) ;
-        */
+        return view('welcome', ['products'=>  $products]) ;
+              
+    }
 
-        $category = DB::table('categories')
-                ->leftjoin('sub_categories','sub_categories.categoryid','=','categories.id')
-                ->get();
 
-         return view('welcome', ['category'=> $category]) ;
-           
+
+    public function headerproduct(){
+        $ggg ="ggg";
+
+        return view('Mainpage.Header',['ccc'=> $ggg]);
     }
 
     public function allproduct(){
@@ -528,10 +530,7 @@ class Productupload extends Controller
         return view('products');
    }
 
-   public function categories(){
-        
-
-   }
+  
 
   
 

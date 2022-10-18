@@ -378,10 +378,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
           @if (Auth::guard('admin')->user())
             <li class="nav-item">
                 <a href="{{ route('admin.allproduct') }}" class="nav-link text-dark">
-                <i class="fa fa-square nav-icon" aria-hidden="true"></i>
+                <i class="fa fa-bolt nav-icon" aria-hidden="true"></i>
                 <p>
-                    All products
-
+                    Featured and Flash
+                
                 </p>
                 </a>
             </li>

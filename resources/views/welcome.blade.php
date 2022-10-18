@@ -1,13 +1,6 @@
-@includeIf('Mainpage.Header')
+@include('Mainpage.Header', ['category'=>$category])
 
                 {{-- -THESE ARE ALL FOR SMALL SCREE --}}
-
-               
-
-
-                @foreach ($category as $categories)
-                    <h1 class="mt-5">{{ $categories->id }}</h1>
-                @endforeach
                 
                 {{-- first category --}}
                 <div class="table-responsive after-header small-screen ">
@@ -35,7 +28,7 @@
                     </table>
                 </div>
 
-
+               
 
                 {{-- -CAROUSEL --}}
                 <div class="row mt-3 mycarosel small-screen" >
@@ -338,7 +331,7 @@
 
                        <div class=" col-11 col-sm-5  mt-2 mx-auto d-flex justify-content-around p-2 shadow rounded  " style="">
 
-                            <div class="card rounded shadow" style="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <div class="card rounded shadow" style="" data-bs-toggle="modal" data-bs-target="#detailsModal">
                               <img src="{{ asset('images/m1.jpg') }}" class="card-img-top m-1" style="" alt="...">
 
                             </div>
@@ -1136,537 +1129,41 @@
                         <div class="row mt-2  mx-auto " style="width: 100%;">
 
                             <div class="accordion accordion-flush " id="accordionFlushExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingOne">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                           <i class="fas fa-dot-circle mr-2"></i>  women
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body ">
 
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
+                                @foreach ($category as $categories)
+                    
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="flush-headingOne">
+                                            <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $categories['categoryname'] }}" aria-expanded="false" aria-controls="{{ $categories['categoryname'] }}">
+                                               <i class="fas fa-dot-circle mr-2"></i> {{ $categories['categoryname'] }}
+                                            </button>
+                                        </h2>
+                                        <div id="{{ $categories['categoryname'] }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div class="accordion-body ">
+    
+                                                <div class="row ">
+                                                    <div class="card shadow m-1 rounded-circle col-2 p-1">
+                                                        <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
+                                                    </div>
+                                                   
+                                                    
+                                                        @foreach ($categories['subcat'] as $sub)
+                                                            <div class="card shadow rounded m-1 col-2 p-1"> 
+                                                                <img src="{{ $sub->image}}" class=" card-img-top"  alt="Sunset Over the Sea"/>
+                                                            </div>
+                                                        @endforeach
+                                                        
+                                                   
+                                                   
+    
                                                 </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/woman-clothes.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/high-heels.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/woman-clothes.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/high-heels.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/woman-clothes.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/high-heels.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
+    
                                             </div>
-
                                         </div>
                                     </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingTwo">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                            <i class="fas fa-dot-circle mr-2"></i>  men
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
 
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/smart-shoe.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/sneakers.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m11.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/shirts.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/smart-watch.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m1.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m7.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingThree">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                                            <i class="fas fa-dot-circle mr-2"></i>  children
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/baby-shoes.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/high-heels.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/woman-clothes.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/high-heels.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/woman-clothes.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/high-heels.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingElec">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseElec" aria-expanded="false" aria-controls="flush-collapseElec">
-                                            <i class="fas fa-dot-circle mr-2"></i>  electronics
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseElec" class="accordion-collapse collapse" aria-labelledby="flush-headingElec" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m12.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m13.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m14.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m16.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laundry.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laptop-screen.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/computer2.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingHome">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseHome" aria-expanded="false" aria-controls="flush-collapseHome">
-                                            <i class="fas fa-dot-circle mr-2"></i>  Home & Office
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseHome" class="accordion-collapse collapse" aria-labelledby="flush-headingHome" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m12.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m13.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m14.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m16.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laundry.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laptop-screen.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/computer2.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingElec">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseElec" aria-expanded="false" aria-controls="flush-collapseElec">
-                                            <i class="fas fa-dot-circle mr-2"></i>  electronics
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseElec" class="accordion-collapse collapse" aria-labelledby="flush-headingElec" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m12.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m13.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m14.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m16.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laundry.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laptop-screen.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/computer2.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingElec">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseElec" aria-expanded="false" aria-controls="flush-collapseElec">
-                                            <i class="fas fa-dot-circle mr-2"></i>  electronics
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseElec" class="accordion-collapse collapse" aria-labelledby="flush-headingElec" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m12.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m13.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m14.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m16.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laundry.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laptop-screen.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/computer2.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingElec">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseElec" aria-expanded="false" aria-controls="flush-collapseElec">
-                                            <i class="fas fa-dot-circle mr-2"></i>  electronics
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseElec" class="accordion-collapse collapse" aria-labelledby="flush-headingElec" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m12.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m13.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m14.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m16.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laundry.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laptop-screen.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/computer2.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingElec">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseElec" aria-expanded="false" aria-controls="flush-collapseElec">
-                                            <i class="fas fa-dot-circle mr-2"></i>  electronics
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseElec" class="accordion-collapse collapse" aria-labelledby="flush-headingElec" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m12.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m13.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m14.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m16.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laundry.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laptop-screen.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/computer2.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="flush-headingElec">
-                                        <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseElec" aria-expanded="false" aria-controls="flush-collapseElec">
-                                            <i class="fas fa-dot-circle mr-2"></i>  electronics
-                                        </button>
-                                    </h2>
-                                    <div id="flush-collapseElec" class="accordion-collapse collapse" aria-labelledby="flush-headingElec" data-bs-parent="#accordionFlushExample">
-                                        <div class="accordion-body">
-                                            <div class="row ">
-                                                <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                    <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m12.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m13.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m14.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m16.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laundry.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/television.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/laptop-screen.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/computer2.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                                <div class="card shadow rounded m-1 col-2 p-1">
-                                                    <img src="{{ asset('images/m10.jpg') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
+                                
                             </div>
 
                         </div>
@@ -1825,71 +1322,29 @@
                 </div>
 
                 <div class="row bigscreen   mt-3">
-
+                    @foreach ($products as $product)
+                        
+                 
                     <div class="  thediv  mx-auto p-2 mt-5  shadow-lg rounded ">
 
                         <div class="row ">
                             <div class="col-12 d-flex">
-                                <span>Electronics</span>
-                                <span class="ms-auto" style="cursor:pointer;">see more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </span>
+                                <span>{{$product['categoryname']}}</span>
+                                <a href="products/{{$product['id']}}" class="ms-auto" style="cursor:pointer;">see more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </a>
                             </div>
                         </div>
 
                         <div class="row d-flex justify-content-around ">
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
+                            @foreach ($product['product'] as $productdetail)
+                                <div class="card p-0 mt-1 bigcardforbigscreen" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                                    <img src="{{$productdetail->main_image}}" class="card-img-top" style="height: 10rem;" alt="...">
+                                    <div class="card-body px-1 py-0">
+                                        <h6 class="card-title">{{ $productdetail->productname }}</h6>
+                                        <p class="card-text">Some.</p>
+                                        
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m14.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
+                            @endforeach
 
                         </div>
 
@@ -1898,222 +1353,8 @@
 
                     </div>
 
-                    <div class="  thediv mx-auto p-2 mt-5  shadow-lg rounded ">
-
-                        <div class="row ">
-                            <div class="col-12 d-flex">
-                                <span>Electronics</span>
-                                <span class="ms-auto" style="cursor:pointer;">see more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </span>
-                            </div>
-                        </div>
-
-                        <div class="row d-flex justify-content-around ">
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m14.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-
-                    </div>
-
-                    <div class="  thediv mx-auto p-2 mt-5  shadow-lg rounded ">
-
-                        <div class="row ">
-                            <div class="col-12 d-flex">
-                                <span>Electronics</span>
-                                <span class="ms-auto" style="cursor:pointer;">see more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </span>
-                            </div>
-                        </div>
-
-                        <div class="row d-flex justify-content-around ">
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m14.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-
-                    </div>
-
-                    <div class="  thediv mx-auto p-2 mt-5  shadow-lg rounded ">
-
-                        <div class="row ">
-                            <div class="col-12 d-flex">
-                                <span>Electronics</span>
-                                <span class="ms-auto" style="cursor:pointer;">see more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </span>
-                            </div>
-                        </div>
-
-                        <div class="row d-flex justify-content-around ">
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m14.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                            <div class="card p-0 mt-1 bigcardforbigscreen" >
-                                <img src="{{ asset('images/m19.jpg') }}" class="card-img-top" style="height: 10rem;" alt="...">
-                                <div class="card-body px-1 py-0">
-                                    <h6 class="card-title">Card title</h6>
-                                    <p class="card-text">Some.</p>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-
-                    </div>
-
+                    
+                    @endforeach
 
 
 

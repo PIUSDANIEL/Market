@@ -33,6 +33,7 @@
         <link rel="stylesheet"  href="{{ asset('css/market.css') }}" >
         <!-- js --->
         <script type="text/javascript" src="{{ asset('js/market.js') }}" ></script>
+        
 
             <!-- jQuery 1.8 or later, 33 KB -->
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

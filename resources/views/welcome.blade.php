@@ -1,7 +1,7 @@
 @include('Mainpage.Header', ['category'=>$category])
 
                 {{-- -THESE ARE ALL FOR SMALL SCREE --}}
-                
+
                 {{-- first category --}}
                 <div class="table-responsive after-header small-screen ">
                     <table class="table  m-0">
@@ -28,7 +28,7 @@
                     </table>
                 </div>
 
-               
+
 
                 {{-- -CAROUSEL --}}
                 <div class="row mt-3 mycarosel small-screen" >
@@ -222,253 +222,42 @@
                         </div>
 
                         <div class="loop owl-carousel owl-theme mt-1 p-1" id="">
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                           @foreach ($flash as $flas)
+                                <div class="item" onclick="detailsmodal({{$flas->id}})" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                                    <div class="card mycard shadow rounded" style="">
+                                        <img src="{{$flas->main_image}}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                        <div class="card-body px-1">
+                                            <div class="col-12 mt-n3 productcard "><p>{{ $flas->productname}}</p></div>
+                                            <div class="col-12 mt-n3 mb-n3"><h6>&#8358; {{ number_format($flas->price) }}</h6></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="card mycard shadow rounded" style="">
-                                    <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                    <div class="card-body px-1">
-                                        <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                        <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                    </div>
-                                </div>
-                            </div>
+                           @endforeach
                         </div>
 
                 </div>
 
+                @foreach ($products as $product)
                  {{-- -big card --}}
-               <div class="row mt-4 small-screen">
+                    <div class="row mt-4 small-screen">
 
                         <div class="col-12  mx-auto mb-1  d-flex">
-                            <span class="border border-info rounded px-2">Footwears</span>
-                            <span class="ms-auto border border-info rounded px-2">Visit</span>
+                            <span class="border border-info rounded px-2">{{ $product['categoryname'] }}</span>
+                            <a href="products/{{$product['id']}}" class="ms-auto border border-info rounded px-2">Visit</a href="products/{{$product['id']}}">
                         </div>
 
-                       <div class=" col-11 col-sm-5  mt-2 mx-auto d-flex justify-content-around p-2 shadow rounded  " style="">
+                        @foreach ($product['product'] as $produc)
+                            <div class="col-6 card rounded shadow" onclick="detailsmodal({{$produc->id}})" style="" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                                <img src="{{$produc->main_image}}" class="card-img-top m-1" style="" alt="...">
+                                <div class="card-body px-1 py-0">
+                                    <h6 class="card-title">{{ $produc->productname }}</h6>
+                                    <p class="card-text">&#8358;{{ number_format($produc->price) }}</p>
 
-                            <div class="card rounded shadow" style="" data-bs-toggle="modal" data-bs-target="#detailsModal">
-                              <img src="{{ asset('images/m1.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
+                                </div>
                             </div>
-
-                            <div class="card rounded shadow" style="">
-                                <img src="{{ asset('images/m2.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                            </div>
-
-                       </div>
-
-
-                       <div class="col-11 col-sm-5  mt-2 mx-auto d-flex justify-content-around p-2 shadow rounded  " style="">
-
-                        <div class="card rounded shadow" style="">
-                            <img src="{{ asset('images/m3.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                        </div>
-
-                        <div class="card rounded shadow" style="">
-                            <img src="{{ asset('images/m4.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                        </div>
-
-                       </div>
-
-               </div>
-
-
-                 {{-- -fLASH SALE --}}
-                <div class="row mt-3 small-screen">
-                    <div class="col-12 d-flex justify-content-between">
-                        <span class=" rounded px-3 border  " >flash sale</span>
-
-                        <span class=" rounded px-3 border " ><a href="#" class="">see more</a></span>
+                        @endforeach
                     </div>
-
-                    <div class="loop owl-carousel owl-theme mt-1 p-1" id="">
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="card mycard shadow rounded" style="">
-                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
-                                <div class="card-body px-1">
-                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
-                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
+                @endforeach
 
 
                    <!-- Set up your HTML -->
@@ -1085,6 +874,12 @@
 
 
 
+
+
+
+
+
+
                 {{-- THIS IS FOR BIGGER SCREEN --}}
 
                 <div class="row bigscreen  bringitdown" >
@@ -1131,7 +926,7 @@
                             <div class="accordion accordion-flush " id="accordionFlushExample">
 
                                 @foreach ($category as $categories)
-                    
+
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingOne">
                                             <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $categories['categoryname'] }}" aria-expanded="false" aria-controls="{{ $categories['categoryname'] }}">
@@ -1140,30 +935,30 @@
                                         </h2>
                                         <div id="{{ $categories['categoryname'] }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body ">
-    
+
                                                 <div class="row ">
                                                     <div class="card shadow m-1 rounded-circle col-2 p-1">
                                                         <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
                                                     </div>
-                                                   
-                                                    
+
+
                                                         @foreach ($categories['subcat'] as $sub)
-                                                            <div class="card shadow rounded m-1 col-2 p-1"> 
+                                                            <div class="card shadow rounded m-1 col-2 p-1">
                                                                 <img src="{{ $sub->image}}" class=" card-img-top"  alt="Sunset Over the Sea"/>
                                                             </div>
                                                         @endforeach
-                                                        
-                                                   
-                                                   
-    
+
+
+
+
                                                 </div>
-    
+
                                             </div>
                                         </div>
                                     </div>
 
                                 @endforeach
-                                
+
                             </div>
 
                         </div>
@@ -1240,82 +1035,25 @@
                         </div>
 
                            {{-- --big card --}}
-                        <div class="row mt-3 ">
+                        <div class="row mt-3">
 
                             <div class="col-12  mx-auto mb-1  d-flex">
-                                <span class="border border-info rounded px-2">Footwears</span>
-                                <span class="ms-auto border border-info rounded px-2">Visit</span>
+                                <span class="border bg-info text-light rounded px-2">Flash sales</span>
+                                <span class="ms-auto border bg-info text-light rounded px-2">Visit</span>
                             </div>
 
-                            <div class=" col-11 col-sm-5  mt-2 mx-auto d-flex justify-content-around p-2 shadow rounded  " style="">
-
-                                    <div class="card rounded shadow" style="">
-                                    <img src="{{ asset('images/m5.jpg') }}" class="card-img-top m-1" style="" alt="...">
+                            @foreach ($flash as $flas)
+                                <div class=" flash m-1  card border-info rounded shadow p-0" onclick="detailsmodal({{$flas->id}})" data-bs-toggle="modal" data-bs-target="#detailsModal" style="">
+                                    <img src="{{ $flas->main_image}}" class="card-img-top " style="height: 10rem;" alt="...">
+                                    <div class="card-body px-1 py-0">
+                                        <h6 class="card-title">{{$flas->productname}}</h6>
+                                        <p class="card-text">&#8358;{{ number_format($flas->price) }}</p>
 
                                     </div>
-
-                                    <div class="card rounded shadow" style="">
-                                        <img src="{{ asset('images/m6.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                                    </div>
-
-                            </div>
-
-
-                            <div class="col-11 col-sm-5  mt-2 mx-auto d-flex justify-content-around p-2 shadow rounded  " style="">
-
-                                <div class="card rounded shadow" style="">
-                                    <img src="{{ asset('images/m7.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
                                 </div>
-
-                                <div class="card rounded shadow" style="">
-                                    <img src="{{ asset('images/m8.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                                </div>
-
-                            </div>
+                            @endforeach
 
                         </div>
-
-                           {{-- --big card --}}
-                           <div class="row mt-3 ">
-
-                                <div class="col-12  mx-auto mb-1  d-flex">
-                                    <span class="border border-info rounded px-2">Footwears</span>
-                                    <span class="ms-auto border border-info rounded px-2">Visit</span>
-                                </div>
-
-                                <div class=" col-11 col-sm-5  mt-2 mx-auto d-flex justify-content-around p-2 shadow rounded  " style="">
-
-                                        <div class="card rounded shadow" style="">
-                                        <img src="{{ asset('images/m5.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                                        </div>
-
-                                        <div class="card rounded shadow" style="">
-                                            <img src="{{ asset('images/m6.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                                        </div>
-
-                                </div>
-
-
-                                <div class="col-11 col-sm-5  mt-2 mx-auto d-flex justify-content-around p-2 shadow rounded  " style="">
-
-                                    <div class="card rounded shadow" style="">
-                                        <img src="{{ asset('images/m7.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                                    </div>
-
-                                    <div class="card rounded shadow" style="">
-                                        <img src="{{ asset('images/m8.jpg') }}" class="card-img-top m-1" style="" alt="...">
-
-                                    </div>
-
-                                </div>
-
-                           </div>
 
                     </div>
 
@@ -1323,41 +1061,34 @@
 
                 <div class="row bigscreen   mt-3">
                     @foreach ($products as $product)
-                        
-                 
-                    <div class="  thediv  mx-auto p-2 mt-5  shadow-lg rounded ">
+                        <div class="  thediv  mx-auto p-2 mt-5  shadow-lg rounded ">
 
-                        <div class="row ">
-                            <div class="col-12 d-flex">
-                                <span>{{$product['categoryname']}}</span>
-                                <a href="products/{{$product['id']}}" class="ms-auto" style="cursor:pointer;">see more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </a>
-                            </div>
-                        </div>
-
-                        <div class="row d-flex justify-content-around ">
-                            @foreach ($product['product'] as $productdetail)
-                                <div class="card p-0 mt-1 bigcardforbigscreen" data-bs-toggle="modal" data-bs-target="#detailsModal">
-                                    <img src="{{$productdetail->main_image}}" class="card-img-top" style="height: 10rem;" alt="...">
-                                    <div class="card-body px-1 py-0">
-                                        <h6 class="card-title">{{ $productdetail->productname }}</h6>
-                                        <p class="card-text">Some.</p>
-                                        
-                                    </div>
+                            <div class="row ">
+                                <div class="col-12 d-flex">
+                                    <span>{{$product['categoryname']}}</span>
+                                    <a href="products/{{$product['id']}}" class="ms-auto" style="cursor:pointer;">see more <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </a>
                                 </div>
-                            @endforeach
+                            </div>
+
+                            <div class="row d-flex justify-content-around ">
+                                @foreach ($product['product'] as $productdetail)
+                                    <div class="card p-0 mt-1 bigcardforbigscreen" onclick="detailsmodal({{$productdetail->id}})" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                                        <img src="{{$productdetail->main_image}}" class="card-img-top" style="height: 10rem;" alt="...">
+                                        <div class="card-body px-1 py-0">
+                                            <h6 class="card-title">{{$productdetail->productname }}</h6>
+                                            <p class="card-text">&#8358;{{ number_format($productdetail->price) }} </p>
+
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                            </div>
+
+
+
 
                         </div>
-
-
-
-
-                    </div>
-
-                    
                     @endforeach
-
-
-
                 </div>
 
 

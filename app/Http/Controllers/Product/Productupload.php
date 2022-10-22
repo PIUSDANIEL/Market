@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class Productupload extends Controller
 {
     public function uploadproduct(Request $request){
 
-     
+
 
             $validate = validator::make($request->all(),[
                 'productname' => 'required|string',
@@ -29,10 +30,10 @@ class Productupload extends Controller
                 'quantity'    => 'required|integer',
                 'description' => 'nullable|string',
                 'search'      => 'required|string',
-                'main_image'      => 'required',
+                'main_image'      => 'required|dimensions:width=500,height=500',
                 'main_image.*'    => 'image|mimes:jpeg,jpg,png,svg,gif|max:2048',
                 'images'      => 'required',
-                'images.*'      => 'image|mimes:jpeg,jpg,png,svg,gif|max:2048',
+                'images.*'      => 'image|mimes:jpeg,jpg,png,svg,gif|max:2048|dimensions:width=500,height=500',
                 'uploader'    => 'required|string',
                 'condition'   => 'nullable|string',
                 'categories'  => 'required|string',
@@ -40,9 +41,14 @@ class Productupload extends Controller
                 'specification'  => 'nullable|string',
                 'percentage'     => 'nullable|string',
 
+            ],[
+                'main_image.dimensions'=>'Only 500 x 500 image dimension are required !',
+                'images.0.dimensions'=>'Only 500 x 500 image dimension are required !',
+                'images.1.dimensions'=>'Only 500 x 500 image dimension are required !',
+                'images.2.dimensions'=>'Only 500 x 500 image dimension are required !'
             ]);
 
-           
+
 
             if($validate->fails()){
 
@@ -89,7 +95,7 @@ class Productupload extends Controller
 
                 }
 
-                    
+
                 if($request->hasFile('images')){
                     foreach($request->file('images') as $images){
                         if($images->isValid()){
@@ -316,7 +322,7 @@ class Productupload extends Controller
 
             if(Auth::guard('seller')->user()){
 
-                $user = Auth::guard('seller')->user()->shopname;
+                $user = Auth::guard('seller')->user()->id;
 
             }
 
@@ -327,8 +333,11 @@ class Productupload extends Controller
 
             }
 
-          $products =  DB::table('products')->where('shopname','=',$user)
-                        ->where('deleted','=', 0)
+          $products =  DB::table('products')
+                        ->where('products.shopname','=',$user)
+                        ->where('products.deleted','=', 0)
+                        ->join('categories','categories.id','=','products.categories')
+                        ->join('sub_categories','sub_categories.id','=','products.sub_categories')
                         ->get();
 
           return response()->json([
@@ -415,7 +424,15 @@ class Productupload extends Controller
     }
 
     public function product(){
-     
+
+        $flash = DB::table('products')
+        ->where('flash_sale',1)
+        ->where('deleted', 0)
+        ->where('featured', 1)
+        ->limit(12)
+        ->inRandomOrder()
+        ->get();
+
         $prod =  DB::table('categories')->select('id','categoryname')->get();
         $products = json_decode($prod,true);
 
@@ -426,22 +443,18 @@ class Productupload extends Controller
                         ->where('categories',$id)
                         ->where('deleted', 0)
                         ->where('featured', 1)
+                        ->limit(6)
+                        ->inRandomOrder()
                         ->get();
 
             $products[$i]['product'] = $product;
         }
-    
-        return view('welcome', ['products'=>  $products]) ;
-              
+
+        return view('welcome', ['products'=>$products,'flash'=> $flash]) ;
+
     }
 
 
-
-    public function headerproduct(){
-        $ggg ="ggg";
-
-        return view('Mainpage.Header',['ccc'=> $ggg]);
-    }
 
     public function allproduct(){
 
@@ -530,9 +543,36 @@ class Productupload extends Controller
         return view('products');
    }
 
-  
+   public function detailsmodal($id){
 
-  
+        $product = DB::table('products')
+                        ->where('id',$id)
+                        ->where('deleted', 0)
+                        ->get();
+        if(count($product) == 0){
+
+            return response()->json([
+                'status'=>400,
+                'message'=>"Product does not exist!"
+            ]);
+        }else{
+            return response()->json([
+                'status'=>200,
+                'message'=>$product
+            ]);
+        }
+
+
+
+   }
+
+   public function add_to_cart(Request $req){
+        
+   }
+
+
+
+
 
 
 

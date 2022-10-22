@@ -13,28 +13,26 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-6">
-                                <!-- Add images to <div class="fotorama"></div> -->
-                                <div class="fotorama"
-                                 data-width="100%"
-                                 data-ratio="800/600"
-                                 data-allowfullscreen="native"
-                                 data-nav="thumbs"
-                                 data-transition="crossfade"
-                                 data-arrows="true"
-                                 data-click="true"
-                                 data-swipe="true">
-                                    <img src="{{ asset('images/m14.jpg') }}">
-                                    <img src="{{ asset('images/m16.jpg') }}">
-                                    <img src="{{ asset('images/m12.jpg') }}">
-                                    <img src="{{ asset('images/m13.jpg') }}">
-                                    <img src="{{ asset('images/images(5).jpg') }}">
-                                    <img src="{{ asset('images/snicker.jpg') }}">
+                               
+                                <div id="carouselExampleCaptions" class="carousel  slide rounded" data-bs-ride="carousel">
+                                    
+                                    <div class="carousel-inner caro rounded">
+                                       
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
                                 </div>
                             </div>
 
                             <div class="col-sm-6">
-                                <h6 class="mt-2">XIAOMI Redmi Note 11S, 8GB/128GB, 5000 MAh Battery - Twilight Blue</h6 cla>
-                                <p>Brand: XIAOMI | Similar products from XIAOMI</p>
+                                <h6 class="mt-2" id="detailsname"></h6 cla>
+                                <p id="detailsbrand">Brand: XIAOMI | Similar products from XIAOMI</p>
                                 <p class="small">
                                     <i class="fa fa-star small" aria-hidden="true"></i>
                                     <i class="fa fa-star small" aria-hidden="true"></i>
@@ -43,13 +41,14 @@
                                     <i class="fa fa-star small" aria-hidden="true"></i>
                                 </p>
                                 <hr>
-                                <p class="money">&#8358;  500,000</p>
-                                <p class=""><del class="mr-4">&#8358; 600,000</del>    <span style="background-color: rgba(238, 0, 0, 0.114);" class="ml-4 rounded p-1 text-danger">&#37;8</span></p>
+                                <p class="money" id="detailsprice"></p>
+                                <p class="" ><del class="mr-4" id="detailslistprice"> </del>    <span style="background-color: rgba(238, 0, 0, 0.114);" class="ml-4 rounded p-1 text-danger" id="detailspercent"> </span></p>
                                 <p><i class="fa fa-heart" aria-hidden="true"></i> Add to wishlist</p>
+                                <div class="row" id="detailsize"></div>
                                 <div class="card" >
 
                                     <div class="card-body">
-                                        <p class="card-title">Seller's information</p>
+                                        <p class="card-title" id="detailsseller">Seller's information</p>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 
                                     </div>
@@ -67,7 +66,7 @@
                                         </button>
                                     </h2>
                                     <div id="flush-collapseOne1" class="accordion-collapse collapse" aria-labelledby="flush-headingOne1" data-bs-parent="#accordionFlushExample1">
-                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                                        <div class="accordion-body" id="detailsdesc">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
                                     </div>
                                 </div>
                                 <div class="accordion-item">
@@ -77,7 +76,7 @@
                                         </button>
                                     </h2>
                                     <div id="flush-collapseTwo2" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo2" data-bs-parent="#accordionFlushExample1">
-                                        <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                                        <div class="accordion-body" id="detailsspec">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
                                     </div>
                                 </div>
 
@@ -482,6 +481,8 @@
                     }
                     })
                 });
+
+                
 
             </script>
 

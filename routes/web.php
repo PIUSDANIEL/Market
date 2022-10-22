@@ -21,9 +21,12 @@ Auth::routes();
 
 Route::get('/',[Productupload::class,'product'])->name('/');
 
-Route::get('headerproduct',[Productupload::class,'headerproduct'])->name('headerproduct');
 
 Route::get('products/{cat}',[Productupload::class,'products'])->name('products');
+
+Route::get('detailsmodal/{id}',[Productupload::class,'detailsmodal'])->name('detailsmodal');
+
+Route::post('add_to_cart',[Productupload::class,'add_to_cart'])->name('add_to_cart');
 
 Route::post('featured',[Productupload::class,'featured'])->name('featured');
 

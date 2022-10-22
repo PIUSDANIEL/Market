@@ -127,8 +127,8 @@ $(document).ready(function () {
         { data:'colour'},
         { data:'condition'},
         { data:'search'},
-        { data:'categories'},
-        { data:'sub_categories'},
+        { data:'categoryname'},
+        { data:'sub_categoryname'},
 
 
     ],
@@ -945,4 +945,147 @@ $('#editsubcategory').submit(function (e) {
 
 
  });
+
+ function detailsmodal(id){
+         $('#detailsname').html('');
+         $('#detailsbrand').html('');
+         $('#detailsprice').html('');
+         $('#detailslistprice').html('');
+         $('#detailsmainimage').html('');
+         $('#detailspercent').html('');
+         $('#detailsdesc').html('');
+         $('#detailsspec').html('');
+         $('#detailsize').html('');
+         $('.caro').html('');
+
+
+       $.get("detailsmodal/"+id,function(response) {
+
+            if(response.status === 200){
+                $.each(response.message, function (key, detais) {
+                    //$('#detailsprice').append('&#8358;');
+                   // $('#detailslistprice').append('&#8358;');
+                  
+                var price =  new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(detais.price);
+                var listprice =  new Intl.NumberFormat('en-NG',{ maximumSignificantDigits: 3 }).format(detais.listprice);
+
+                    $('#detailsname').append(detais.productname);
+                    $('#detailsbrand').append(detais.brand);
+                    $('#detailsprice').append('&#8358;'+price);
+                    $('#detailslistprice').append('&#8358;'+listprice);
+                    $('#detailspercent').append('&#37;'+detais.percentage);
+                    $('#detailsdesc').append(detais.description);
+                    $('#detailsspec').append(detais.specification);
+                    if(detais.size != ""){
+                        var si = detais.size.split(',');
+
+                            $.each( si, function (key, siz) { 
+                                var sizesp = siz.split(':');
+
+                                var mone = new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(sizesp[2]);
+
+                                $('#detailsize').append('<div class="col-11 m-3 d-flex justify-content-around">'
+                                +'<h4 class="text-info">'+sizesp[0]+'</h4>  '
+                                +'<i class="fa fa-square " aria-hidden="true" style="margin-top:1px; margin-left:10px; font-size:25px; color:'+sizesp[1]+';"></i>'
+                                +'<h4 style="margin-left:20px;">&#8358; '+mone+'</h4>'
+                                +'<button class="btn btn-sm btn-info " onclick="add_to_cart(\''+detais.id+'\',\''+sizesp[0]+'\',\''+sizesp[1]+'\',\''+sizesp[2]+'\')" style="margin-left:10px;"><i class="fa fa-plus"></i></button>'
+                                +'</div>');
+                            });
+                           
+                        
+                       
+                        console.log(si);
+                    }
+                   
+                  
+                 $('.caro').append('<div class="carousel-item rounded active">'
+                 +'<img src="'+detais.main_image+'" class="d-block w-100" alt="...">'
+                 +'<div class="carousel-caption d-none d-md-block">'
+                     +'<h5>First slide label</h5>'
+                    
+                 +'</div>'
+                +'</div>'
+                );
+                 
+               
+                  //console.log(JSON.parse(detais.images));
+                    var images = JSON.parse(detais.images);
+                    $.each(images, function (key, imag) { 
+                         $('.caro').append('<div class="carousel-item rounded">'
+                         +'<img src="'+imag+'" class="d-block w-100" alt="...">'
+                         +'<div class="carousel-caption d-none d-md-block">'
+                             +'<h5>First slide label</h5>'
+                            
+                         +'</div>'
+                        +'</div>'
+                       );
+
+                    });
+                
+                    
+                });
+
+            }
+
+        }
+       );
+ }
+
+ function sizepriceqty(){
+    $('#size').val('');
+   
+
+    var spqc = "";
+
+    for(var i = 1; i <=5 ; i++){
+        if($('#size'+i).val() != "" && $('#colour'+i).val() != "" && $('#price'+i).val() != "" && $('#quantity'+i).val() != ""){
+            spqc += $('#size'+i).val()+':'+$('#colour'+i).val()+':'+$('#price'+i).val()+':'+$('#quantity'+i).val();
+        } 
+    }
+    
+    $('#size').val(spqc);
+   
+}
+
+function editsizepriceqty(){
+   
+    $('#editsize').val('');
+
+    var editsiz = "";
+
+    for(var i = 1; i <=5 ; i++){
+        if($('#editsize'+i).val() != "" && $('#editcolour'+i).val() != "" && $('#editprice'+i).val() != "" && $('#editquantity'+i).val() != ""){
+            editsiz += $('#editsize'+i).val()+':'+$('#editcolour'+i).val()+':'+$('#editprice'+i).val()+':'+$('#editquantity'+i).val();
+        } 
+    }
+    
+    $('#editsize').val(editsiz);
+
+}
+
+function add_to_cart(id,size,colo,price){
+    //alert(price);
+    var id = id;
+    var size = size;
+    var colo = colo;
+    var price = price;
+
+    var data = {
+        'id':id,
+        'size':size,
+        'colo':colo,
+        'price':price
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "add_to_cart",
+        data: data,
+        success: function (response) {
+            
+        }
+    });
+
+    console.log(data);
+}
 

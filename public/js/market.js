@@ -123,7 +123,7 @@ $(document).ready(function () {
         },
         { data:'price'},
         { data:'quantity'},
-        { data:'size'},
+        { data:'singlesize'},
         { data:'colour'},
         { data:'condition'},
         { data:'search'},
@@ -291,7 +291,7 @@ $(document).ready(function () {
   //GET PRODUCT TO BE EDITED
   geteditproduct();
    function geteditproduct(id){
-
+       
     $.get("/geteditproduct/"+id,
     function (data) {
         if(data.status === 200){
@@ -307,6 +307,7 @@ $(document).ready(function () {
                 $('#editproductname').val(produ.productname);
                 $('#editprice').val(produ.price);
                 $('#editlistprice').val(produ.listprice);
+                $('#editsinglesize').val(produ.singlesize);
                 $('#editsize').val(produ.size);
                 $('#editcolour').val(produ.colour);
                 $('#editbrand').val(produ.brand);
@@ -947,6 +948,7 @@ $('#editsubcategory').submit(function (e) {
  });
 
  function detailsmodal(id){
+         $(".alert-danger").html('');
          $('#detailsname').html('');
          $('#detailsbrand').html('');
          $('#detailsprice').html('');
@@ -965,7 +967,7 @@ $('#editsubcategory').submit(function (e) {
                 $.each(response.message, function (key, detais) {
                     //$('#detailsprice').append('&#8358;');
                    // $('#detailslistprice').append('&#8358;');
-                  
+
                 var price =  new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(detais.price);
                 var listprice =  new Intl.NumberFormat('en-NG',{ maximumSignificantDigits: 3 }).format(detais.listprice);
 
@@ -976,53 +978,72 @@ $('#editsubcategory').submit(function (e) {
                     $('#detailspercent').append('&#37;'+detais.percentage);
                     $('#detailsdesc').append(detais.description);
                     $('#detailsspec').append(detais.specification);
-                    if(detais.size != ""){
+                    
+                    if(detais.size != "" && detais.size != null){
+                        //console.log(detais.size);
                         var si = detais.size.split(',');
 
-                            $.each( si, function (key, siz) { 
+                            $.each( si, function (key, siz) {
                                 var sizesp = siz.split(':');
-
+                                    console.log(sizesp);
                                 var mone = new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(sizesp[2]);
-
+                                 var clo = sizesp[1].slice(1);
+                                 var szz = sizesp[0].replace(/ +/g, "");
+                                 
                                 $('#detailsize').append('<div class="col-11 m-3 d-flex justify-content-around">'
                                 +'<h4 class="text-info">'+sizesp[0]+'</h4>  '
                                 +'<i class="fa fa-square " aria-hidden="true" style="margin-top:1px; margin-left:10px; font-size:25px; color:'+sizesp[1]+';"></i>'
-                                +'<h4 style="margin-left:20px;">&#8358; '+mone+'</h4>'
-                                +'<button class="btn btn-sm btn-info " onclick="add_to_cart(\''+detais.id+'\',\''+sizesp[0]+'\',\''+sizesp[1]+'\',\''+sizesp[2]+'\')" style="margin-left:10px;"><i class="fa fa-plus"></i></button>'
+                                +'<h5 style="margin-left:20px;">&#8358; '+mone+'</h5>'
+                                +'<input  type="number" class="w-25 h-75 border border-info " id="'+szz+sizesp[3]+clo+sizesp[2]+'" value="" min="1" max="'+sizesp[3]+'" placeholder="Qty">'
+                                +'<button class="btn btn-sm btn-info  h-75" onclick="add_to_cart(\''+detais.id+'\',\''+sizesp[0]+'\',\''+sizesp[1]+'\',\''+sizesp[2]+'\','+sizesp[3]+')" style="margin-left:10px;"><i class="fa fa-shopping-cart"></i></button>'
                                 +'</div>');
                             });
-                           
-                        
-                       
-                        console.log(si);
+
+
+
+                       // console.log(si);
+                    }else{
+                       // var sizesp = detais.singlesize.split(':');
+
+                        //var mone = new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(sizesp[2]);
+                         var clo = detais.colour.slice(1);
+                         var szz = detais.singlesize.replace(/ +/g, "");
+                         
+                        $('#detailsize').append('<div class="col-11 m-3 d-flex justify-content-around">'
+                        +'<h4 class="text-info">'+detais.singlesize+'</h4>  '
+                        +'<i class="fa fa-square " aria-hidden="true" style="margin-top:1px; margin-left:10px; font-size:25px; color:'+detais.colour+';"></i>'
+                        +'<h5 style="margin-left:20px;">&#8358; '+detais.price+'</h5>'
+                        +'<input  type="number" class="w-25 h-75 border border-info " id="'+szz+detais.quantity+clo+detais.price+'" value="" min="1" max="'+detais.quantity+'" placeholder="Qty">'
+                        +'<button class="btn btn-sm btn-info  h-75" onclick="add_to_cart(\''+detais.id+'\',\''+detais.singlesize+'\',\''+detais.colour+'\',\''+detais.price+'\','+detais.quantity+')" style="margin-left:10px;"><i class="fa fa-shopping-cart"></i></button>'
+                        +'</div>');
                     }
-                   
-                  
+
+
                  $('.caro').append('<div class="carousel-item rounded active">'
                  +'<img src="'+detais.main_image+'" class="d-block w-100" alt="...">'
                  +'<div class="carousel-caption d-none d-md-block">'
                      +'<h5>First slide label</h5>'
-                    
+
                  +'</div>'
                 +'</div>'
                 );
-                 
-               
+
+
                   //console.log(JSON.parse(detais.images));
                     var images = JSON.parse(detais.images);
-                    $.each(images, function (key, imag) { 
+                    $.each(images, function (key, imag) {
                          $('.caro').append('<div class="carousel-item rounded">'
                          +'<img src="'+imag+'" class="d-block w-100" alt="...">'
                          +'<div class="carousel-caption d-none d-md-block">'
                              +'<h5>First slide label</h5>'
-                            
+
                          +'</div>'
                         +'</div>'
                        );
 
                     });
-                
-                    
+
+
                 });
 
             }
@@ -1033,59 +1054,113 @@ $('#editsubcategory').submit(function (e) {
 
  function sizepriceqty(){
     $('#size').val('');
-   
+
 
     var spqc = "";
 
     for(var i = 1; i <=5 ; i++){
         if($('#size'+i).val() != "" && $('#colour'+i).val() != "" && $('#price'+i).val() != "" && $('#quantity'+i).val() != ""){
-            spqc += $('#size'+i).val()+':'+$('#colour'+i).val()+':'+$('#price'+i).val()+':'+$('#quantity'+i).val();
-        } 
+            spqc += $('#size'+i).val()+':'+$('#colour'+i).val()+':'+$('#price'+i).val()+':'+$('#quantity'+i).val()+',';
+        }
     }
-    
+
     $('#size').val(spqc);
-   
+
 }
 
 function editsizepriceqty(){
-   
+
     $('#editsize').val('');
 
     var editsiz = "";
 
     for(var i = 1; i <=5 ; i++){
         if($('#editsize'+i).val() != "" && $('#editcolour'+i).val() != "" && $('#editprice'+i).val() != "" && $('#editquantity'+i).val() != ""){
-            editsiz += $('#editsize'+i).val()+':'+$('#editcolour'+i).val()+':'+$('#editprice'+i).val()+':'+$('#editquantity'+i).val();
-        } 
+            editsiz += $('#editsize'+i).val()+':'+$('#editcolour'+i).val()+':'+$('#editprice'+i).val()+':'+$('#editquantity'+i).val()+',';
+        }
     }
-    
+
     $('#editsize').val(editsiz);
 
 }
 
-function add_to_cart(id,size,colo,price){
+//ADD TO CART
+function add_to_cart(id, size, colo, price, available){
+    $(".alert-danger").html('');
+
     //alert(price);
+    $('.quantity-error').html('');
     var id = id;
     var size = size;
     var colo = colo;
     var price = price;
+    var available = available;
+    var clo = colo.slice(1);
+    var szz = size.replace(/ +/g, "");
+    var quantity = $("#"+szz+available+clo+price).val();
+    console.log(szz);
 
-    var data = {
+    var datacart = {
         'id':id,
         'size':size,
         'colo':colo,
-        'price':price
+        'price':price,
+        'quantity':quantity,
+        'available':available
     };
 
-    $.ajax({
-        type: "POST",
-        url: "add_to_cart",
-        data: data,
-        success: function (response) {
-            
-        }
-    });
+    console.log(datacart);
 
-    console.log(data);
+    if(quantity == "" || quantity == 0){
+        $('.quantity-error').append("<p>Quantity is need!</p>");
+
+        return
+    }
+
+    if(available < quantity){
+        $('.quantity-error').append("<p>There are only "+available+"  size " +size+" colour  "+colo+" available</p>");
+
+        return
+    }
+
+    if(available != "" && quantity != 0 && available > quantity){
+
+        $.ajax({
+            type: "get",
+            url: "addtocart",
+            data: datacart,
+            dataType:"json",
+            success: function (response) {
+                if(response.status === 200){
+                    swal({
+                        'title':response.message,
+                        'icon': "images/shp.gif",
+                        'timer': 2000
+                    });
+                }
+
+                if(response.status === 201){
+
+                    $('#'+response.identify).css('background-color', 'rgba(197, 80, 80, 0.123)');
+                    
+                    $(".alert-danger").append(response.message);
+                }
+
+
+
+                if(response.status === 400){
+                    $.each(response.message, function (key, error) {
+                         $('.alert-danger').append('<li>'+error+'</li>');
+                    });
+                }
+            }
+        });
+
+       
+
+    }
+
+
+
 }
 

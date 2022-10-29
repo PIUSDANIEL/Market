@@ -20,12 +20,13 @@ return new class extends Migration
             $table->integer('listprice');
             $table->string('shopname');
             $table->integer('quantity');
+            $table->string('singlesize')->nullable();
             $table->string('size')->nullable();
             $table->string('colour')->nullable();
             $table->string('brand')->nullable();
-            $table->string('description')->nullable();
-            $table->string('specification')->nullable();
-            $table->string('search');
+            $table->text('description')->nullable();
+            $table->text('specification')->nullable();
+            $table->text('search');
             $table->string('flash_sale')->default(0);
             $table->string('featured')->default(0);
             $table->string('uploader');

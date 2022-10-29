@@ -14,6 +14,7 @@ class Product extends Model
         'price',
         'listprice',
         'shopname',
+        'singlesize',
         'size',
         'colour',
         'brand',

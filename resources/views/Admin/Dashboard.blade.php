@@ -230,7 +230,13 @@
                                             </div>
 
                                             <div class="col-md-4 mt-2">
-                                                    <label for="size" class="form-label">Size & Price..</label>
+                                                <label for="singlesize" class="form-label">Size</label>
+                                                <input type="text" name="singlesize" value="{{ old('singlesize') }}" class="form-control form-control-sm singlesize" id="singlesize">
+
+                                            </div>
+
+                                            <div class="col-md-4 mt-2">
+                                                    <label for="size" class="form-label">Multiple Size & Price..</label>
                                                     <input type="text" name="size" value="{{ old('size') }}" class="form-control form-control-sm size" id="size"
                                                     data-toggle="modal" data-target="#modal-scpq" readonly>
 
@@ -254,7 +260,7 @@
 
                                             <div class="col-md-4 mt-2">
                                                     <label for="colour" class="form-label">Colour</label>
-                                                    <input type="text" name="colour" value="{{ old('colour') }}" class="form-control form-control-sm" id="colour" >
+                                                    <input type="color" name="colour" value="{{ old('colour') }}" class="form-control form-control-sm" id="colour" >
                                             </div>
 
                                             <div class="col-md-4 mt-2">
@@ -404,8 +410,13 @@
 
                                                 </div>
 
+                                                <div class="col-md-4 mt-2">
+                                                    <label for="singlesize" class="form-label">Size</label>
+                                                    <input type="text" name="singlesize" value="{{ old('singlesize') }}" class="form-control form-control-sm singlesize" id="editsinglesize">
+                                                </div>
+
                                                 <div class=" col-lg-4 mt-2">
-                                                    <label for="size" class="form-label">Size & Price..</label>
+                                                    <label for="size" class="form-label">Multiple Size & Price..</label>
                                                     <input type="text" name="size" value="{{ old('size') }}" class="form-control form-control-sm size" id="editsize"
                                                     data-toggle="modal" data-target="#modal-edit-scpq" readonly>
 
@@ -421,7 +432,7 @@
 
                                                 <div class=" col-lg-4 mt-2">
                                                     <label for="colour" class="form-label">Colour</label>
-                                                    <input type="text" name="colour" value="{{ old('colour') }}" class="form-control form-control-sm" id="editcolour" >
+                                                    <input type="color" name="colour" value="{{ old('colour') }}" class="form-control form-control-sm" id="editcolour" >
                                                 </div>
 
                                                 <div class=" col-lg-4 mt-2">
@@ -509,7 +520,7 @@
                                                     </div>
                                                     <div class="form-group mx-auto col-10 col-md-4 col-lg-3 mb-3 m-2">
                                                         <label for="colour{{$i}}" class="form-label">Color</label>
-                                                        <input type="text"
+                                                        <input type="color"
                                                         class="form-control form-control-sm" value="" name="colour{{$i}}" id="colour{{$i}}" aria-describedby="helpId" placeholder="">
                                                     </div>
                                                     <div class="form-group mx-auto col-10 col-md-4 col-lg-3 mb-3 m-2">
@@ -564,7 +575,7 @@
                                                     </div>
                                                     <div class="form-group mx-auto col-10 col-md-4 col-lg-3 mb-3 m-2">
                                                         <label for="editcolour{{$i}}" class="form-label">Color</label>
-                                                        <input type="text"
+                                                        <input type="color"
                                                         class="form-control form-control-sm" value="" name="editcolour{{$i}}" id="editcolour{{$i}}" aria-describedby="helpId" placeholder="">
                                                     </div>
                                                     <div class="form-group mx-auto col-10 col-md-4 col-lg-3 mb-3 m-2">

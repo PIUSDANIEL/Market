@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
@@ -24,6 +25,7 @@ class Productupload extends Controller
                 'price'       => 'required|integer',
                 'listprice'   => 'nullable|integer',
                 'shopname'    => 'required|string',
+                'singlesize'  => 'nullable|string',
                 'size'        => 'nullable|string',
                 'colour'      => 'nullable|string',
                 'brand'       => 'nullable|string',
@@ -65,7 +67,8 @@ class Productupload extends Controller
                 $product->price       = $request->price;
                 $product->listprice   = $request->listprice;
                 $product->shopname    = $request->shopname;
-                $product->size        = $request->size;
+                $product->size        = rtrim($request->size,',') ;
+                $product->singlesize  = $request->singlesize;
                 $product->colour      = $request->colour;
                 $product->brand       = $request->brand;
                 $product->quantity    = $request->quantity;
@@ -141,6 +144,7 @@ class Productupload extends Controller
             'listprice'   => 'nullable|integer',
             'shopname'    => 'required|string',
             'size'        => 'nullable|string',
+            'singlesize'        => 'nullable|string',
             'colour'      => 'nullable|string',
             'brand'       => 'nullable|string',
             'quantity'    => 'required|integer',
@@ -231,6 +235,7 @@ class Productupload extends Controller
                'listprice' => $request->listprice,
                'shopname' => $request->shopname,
                'size' => $request->size,
+               'singlesize' => $request->singlesize,
                'colour' => $request->colour,
                'brand' => $request->brand,
                'quantity' => $request->quantity,
@@ -338,6 +343,9 @@ class Productupload extends Controller
                         ->where('products.deleted','=', 0)
                         ->join('categories','categories.id','=','products.categories')
                         ->join('sub_categories','sub_categories.id','=','products.sub_categories')
+                        ->select('products.id','products.main_image','products.productname','products.price','products.quantity',
+                        'products.singlesize','products.colour','products.search','products.condition','categories.categoryname',
+                        'sub_categories.sub_categoryname')
                         ->get();
 
           return response()->json([
@@ -566,10 +574,7 @@ class Productupload extends Controller
 
    }
 
-   public function add_to_cart(Request $req){
-        
-   }
-
+  
 
 
 

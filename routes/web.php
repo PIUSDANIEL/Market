@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Admincontroller;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Editor\Editorcontroller;
 use App\Http\Controllers\Product\Productupload;
 use App\Http\Controllers\Seller\Sellercontroller;
@@ -26,7 +27,7 @@ Route::get('products/{cat}',[Productupload::class,'products'])->name('products')
 
 Route::get('detailsmodal/{id}',[Productupload::class,'detailsmodal'])->name('detailsmodal');
 
-Route::post('add_to_cart',[Productupload::class,'add_to_cart'])->name('add_to_cart');
+Route::get('addtocart',[CartController::class, 'addtocart'])->name('addtocart');
 
 Route::post('featured',[Productupload::class,'featured'])->name('featured');
 

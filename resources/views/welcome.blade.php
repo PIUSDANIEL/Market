@@ -213,6 +213,7 @@
                 </div>
 
 
+
                 {{-- -fLASH SALE --}}
                 <div class="row mt-4 small-screen">
                         <div class="col-12 d-flex justify-content-between">

@@ -25,6 +25,12 @@ Route::get('/',[Productupload::class,'product'])->name('/');
 
 Route::get('products/{cat}',[Productupload::class,'products'])->name('products');
 
+Route::get('cart',[CartController::class,'cart'])->name('cart');
+
+Route::get('cart_product',[CartController::class,'cart_product'])->name('cart_product');
+
+Route::get('removeaddcart',[CartController::class,'removeaddcart'])->name('removeaddcart');
+
 Route::get('detailsmodal/{id}',[Productupload::class,'detailsmodal'])->name('detailsmodal');
 
 Route::get('addtocart',[CartController::class, 'addtocart'])->name('addtocart');

@@ -279,10 +279,8 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
+   
+    
 
 
  });
@@ -377,20 +375,25 @@ function deletemainimage(){
             if(response.status === 200){
                 geteditproduct(id);
                 $('#editmain_image').css('display', 'block');
-                swal({
-                    'title':response.message,
-                    'icon': 'success',
-                    'timer': 1000
+
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
                 });
+                
 
 
             }else{
 
-                swal({
-                    'title':response.message,
-                    'icon': 'error',
-                    'timer': 1000
+                Swal.fire({
+                    icon: 'error',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
                 });
+                
             }
         }
     });
@@ -416,20 +419,22 @@ function deletemainimage(){
                  geteditproduct(id);
                  $('#editimages').css('display', 'block');
 
-                 swal({
-                     'title':response.message,
-                     'icon': 'success',
-                     'timer': 1000
-                 });
-
-
+                 Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                
              }else{
 
-                 swal({
-                     'title':response.message,
-                     'icon': 'error',
-                     'timer': 1000
-                 });
+                 Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                
              }
          }
      });
@@ -442,16 +447,16 @@ function deletemainimage(){
  //DELETE PRODUCT
  function deleteproduct(id){
 
-    swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Product will be deleted !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
             $.ajax({
                 type: "Get",
                 url: "/deleteproduct/"+id,
@@ -459,26 +464,29 @@ function deletemainimage(){
 
                     if(response.status === 200){
 
-                        swal({
-                            'title':response.message,
-                            'icon': 'success',
-                            'timer': 1000
+                        Swal.fire({
+                            icon: 'success',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1700
                         });
+                        
 
 
                        $('#example1').DataTable().ajax.reload();
 
                     }else{
 
-                        swal({
-                            'title':response.message,
-                            'icon': 'error',
-                            'timer': 1000
+                        Swal.fire({
+                            icon: 'error',
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1700
                         });
                     }
                 }
             });
-
+          
         }
       });
 
@@ -580,11 +588,13 @@ function deletemainimage(){
 
                    $('#productupload').closest('form').find("input[type=text],input[type=number], textarea").val('');
 
-                   swal({
-                    'title':response.message,
-                    'icon': 'success',
-                    'timer': 1000
+                    Swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 1700
                     });
+                    
 
 
                     $('#example1').DataTable().ajax.reload();
@@ -636,13 +646,13 @@ jQuery(function(){
 
                     $('#modal-edit-product').modal('hide');
 
-
-
-                    swal({
-                     'title':response.message,
-                     'icon': 'success',
-                     'timer': 1000
-                     });
+                     Swal.fire({
+                        icon: 'success',
+                        title: response.message,
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    
 
                      $('#example1').DataTable().ajax.reload();
 
@@ -694,11 +704,14 @@ jQuery(function(){
         success: function (response) {
 
             if(response.status === 200){
-                swal({
-                    'title':response.message,
-                    'icon': 'success',
-                    'timer': 1000
+               
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
                 });
+                
 
                 $('#category').DataTable().ajax.reload();
 
@@ -769,11 +782,14 @@ jQuery(function(){
         success: function (response) {
 
             if(response.status === 200){
-                swal({
-                    'title':response.message,
-                    'icon': 'success',
-                    'timer': 1000
+               
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
                 });
+                
 
                 $('#category').DataTable().ajax.reload();
 
@@ -815,11 +831,14 @@ jQuery(function(){
         success: function (response) {
 
             if(response.status === 200){
-                swal({
-                    'title':response.message,
-                    'icon': 'success',
-                    'timer': 1000
+               
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
                 });
+                
 
                 $('#sub-category').DataTable().ajax.reload();
 
@@ -884,20 +903,24 @@ function subdeleteimage(){
                 $('.subimage').addClass('d-none');
                 $('.subimsgechange').removeClass('d-none');
 
-                  swal({
-                      'title':response.message,
-                      'icon': 'success',
-                      'timer': 1000
-                  });
+                  Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                
 
 
               }else{
 
-                  swal({
-                      'title':response.message,
-                      'icon': 'error',
-                      'timer': 1000
-                  });
+                Swal.fire({
+                    icon: 'error',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
+                });
+                
               }
           }
       });
@@ -927,11 +950,14 @@ $('#editsubcategory').submit(function (e) {
         success: function (response) {
 
             if(response.status === 200){
-                swal({
-                    'title':response.message,
-                    'icon': 'success',
-                    'timer': 1000
+               
+                Swal.fire({
+                    icon: 'success',
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: 1000
                 });
+                
 
                 $('#sub-category').DataTable().ajax.reload();
 
@@ -995,7 +1021,7 @@ $('#editsubcategory').submit(function (e) {
                                 +'<i class="fa fa-square " aria-hidden="true" style="margin-top:1px; margin-left:10px; font-size:25px; color:'+sizesp[1]+';"></i>'
                                 +'<h5 style="margin-left:20px;">&#8358; '+mone+'</h5>'
                                 +'<input  type="number" class="w-25 h-75 border border-info " id="'+szz+sizesp[3]+clo+sizesp[2]+'" value="" min="1" max="'+sizesp[3]+'" placeholder="Qty">'
-                                +'<button class="btn btn-sm btn-info  h-75" onclick="add_to_cart(\''+detais.id+'\',\''+sizesp[0]+'\',\''+sizesp[1]+'\',\''+sizesp[2]+'\','+sizesp[3]+')" style="margin-left:10px;"><i class="fa fa-shopping-cart"></i></button>'
+                                +'<button class="btn btn-sm btn-info  h-75" onclick="add_to_cart(\''+detais.id+'\',\''+sizesp[0]+'\',\''+sizesp[1]+'\',\''+sizesp[2]+'\','+sizesp[3]+',\''+detais.main_image+'\',\''+detais.productname+'\')" style="margin-left:10px;"><i class="fa fa-shopping-cart"></i></button>'
                                 +'</div>');
                             });
 
@@ -1014,7 +1040,7 @@ $('#editsubcategory').submit(function (e) {
                         +'<i class="fa fa-square " aria-hidden="true" style="margin-top:1px; margin-left:10px; font-size:25px; color:'+detais.colour+';"></i>'
                         +'<h5 style="margin-left:20px;">&#8358; '+detais.price+'</h5>'
                         +'<input  type="number" class="w-25 h-75 border border-info " id="'+szz+detais.quantity+clo+detais.price+'" value="" min="1" max="'+detais.quantity+'" placeholder="Qty">'
-                        +'<button class="btn btn-sm btn-info  h-75" onclick="add_to_cart(\''+detais.id+'\',\''+detais.singlesize+'\',\''+detais.colour+'\',\''+detais.price+'\','+detais.quantity+')" style="margin-left:10px;"><i class="fa fa-shopping-cart"></i></button>'
+                        +'<button class="btn btn-sm btn-info  h-75" onclick="add_to_cart(\''+detais.id+'\',\''+detais.singlesize+'\',\''+detais.colour+'\',\''+detais.price+'\','+detais.quantity+',\''+detais.main_image+'\')" style="margin-left:10px;"><i class="fa fa-shopping-cart"></i></button>'
                         +'</div>');
                     }
 
@@ -1084,8 +1110,24 @@ function editsizepriceqty(){
 
 }
 
+
+
+ //GET NUMBER ON CART
+ cart();
+ function cart(){
+    $('.mycart').html('');
+     $.get("cart",function (response) {
+             if(response.status === 200){
+                $('.mycart').append(response.message);
+             }
+     
+     });
+ }
+
+
+
 //ADD TO CART
-function add_to_cart(id, size, colo, price, available){
+function add_to_cart(id, size, colo, price, available,image,productname){
     $(".alert-danger").html('');
 
     //alert(price);
@@ -1095,10 +1137,12 @@ function add_to_cart(id, size, colo, price, available){
     var colo = colo;
     var price = price;
     var available = available;
+    var image = image;
+    var productname = productname;
     var clo = colo.slice(1);
     var szz = size.replace(/ +/g, "");
     var quantity = $("#"+szz+available+clo+price).val();
-    console.log(szz);
+   
 
     var datacart = {
         'id':id,
@@ -1106,8 +1150,11 @@ function add_to_cart(id, size, colo, price, available){
         'colo':colo,
         'price':price,
         'quantity':quantity,
-        'available':available
+        'available':available,
+        'image':image,
+        'productname':productname
     };
+    
 
     console.log(datacart);
 
@@ -1132,10 +1179,16 @@ function add_to_cart(id, size, colo, price, available){
             dataType:"json",
             success: function (response) {
                 if(response.status === 200){
-                    swal({
-                        'title':response.message,
-                        'icon': "images/shp.gif",
-                        'timer': 2000
+                    cart();
+                    
+                    Swal.fire({
+                        position: 'top-end',
+                        width: 600,
+                        title: response.message,
+                        color: 'black',
+                        background: 'rgba(94, 228, 94, 0.634)',
+                        showConfirmButton: false,
+                        timer: 1500
                     });
                 }
 
@@ -1163,4 +1216,59 @@ function add_to_cart(id, size, colo, price, available){
 
 
 }
+
+function removeaddcart(id, size, colour, price,quantity, available,mode){
+   $dta = {
+    'id':id, 
+    'size':size, 
+    'colour':colour, 
+    'price':price, 
+    'quantity':quantity,
+    'available':available,
+    'mode':mode
+   }
+
+
+   console.log($dta);
+   
+   $.ajax({
+    type: "get",
+    url: "removeaddcart",
+    data: $dta,
+    dataType:"json",
+    success: function (response) {
+        if(response.status === 200){
+            cart();
+            location.reload();
+          
+           Swal.fire({
+            position: 'top-end',
+            width: 600,
+            title: response.message,
+            color: 'black',
+            background: 'rgba(94, 228, 94, 0.634)',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+
+        
+
+        if(response.status === 400){
+    
+            Swal.fire({
+                icon: 'error',
+                title: response.message,
+                showConfirmButton: false,
+                timer: 1700
+            });
+            
+                
+        }
+    }
+});
+
+}
+
+
 

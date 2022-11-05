@@ -25,17 +25,19 @@
          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
 
          <!--Sweet alert---->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <!---css  -->
         <link rel="stylesheet"  href="{{ asset('css/market.css') }}" >
-        <!-- js --->
-        <script type="text/javascript" src="{{ asset('js/market.js') }}" ></script>
-        
+       
 
             <!-- jQuery 1.8 or later, 33 KB -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
+            <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+             <!-- js --->
+        <script type="text/javascript" src="{{ asset('js/market.js') }}" ></script>
+        
             <!-- Fotorama from CDNJS, 19 KB -->
             <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
@@ -258,12 +260,14 @@
 
 
 
-                        <div class="card   p-0 ms-auto " style="border-radius:10px; width:70px; height:26px; background-color: transparent; ">
-                            <img src="{{ asset('images/shopping-cart.png') }}" width="25px" height="25px" class="img-fluid rounded  " alt="cart">
-                            <div class="card-img-overlay ">
-                                <p class=" ml-4 mt-n3  " style="font-size:small; color:black; ">38</p>
+                        <a href="{{ route('cart_product') }}" class="p-0 ms-auto">
+                            <div class="card   p-0 ms-auto " style="border-radius:10px; width:70px; height:26px; background-color: transparent; ">
+                                <img src="{{ asset('images/shopping-cart.png') }}" width="25px" height="25px" class="img-fluid rounded  " alt="cart">
+                                <div class="card-img-overlay ">
+                                    <p class=" ml-4 mt-n3 mycart bold" id=""  style="color:black; "></p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                 </div>
@@ -461,12 +465,14 @@
                     </div>
 
                     <div class="col-2">
-                        <div class="card  p-0 ms-auto " style="border-radius:10px; width:70px; height:30px; background-color: transparent; ">
-                            <img src="{{ asset('images/shopping-cart.png') }}" width="30px" height="30px" class="img-fluid rounded  " alt="cart">
-                            <div class="card-img-overlay ">
-                                <h6 class=" ml-4 mt-n2 rounded-circle " style="width: 22px; height:22px; color:black; ">38</h6>
+                       <a href="{{ route('cart_product') }}" class="p-0 ms-auto">
+                            <div class="card  p-0 ms-auto " style="border-radius:10px; width:70px; height:30px; background-color: transparent; ">
+                                <img src="{{ asset('images/shopping-cart.png') }}" width="30px" height="30px" class="img-fluid rounded  " alt="cart">
+                                <div class="card-img-overlay ">
+                                    <h6 class=" ml-4 mt-n2 rounded-circle mycart" style="width: 22px; height:22px; color:black; "></h6>
+                                </div>
                             </div>
-                        </div>
+                       </a>
                     </div>
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Sub_category;
 use Illuminate\Http\Request;
@@ -55,6 +56,7 @@ class Admincontroller extends Controller
 
         $sub_cat = DB::table('categories')
                 ->join('sub_categories','sub_categories.categoryid','=','categories.id')
+                ->orderBy('categories.id', 'asc')
                 ->get();
 
             return response()->json([
@@ -282,6 +284,81 @@ class Admincontroller extends Controller
 
 
   }
+
+  public function addbrand(Request $requ){
+
+    $bran = Validator::make($requ->only('brandname'),[
+
+        'brandname'=> 'required|alpha|unique:brands,brand',
+    ],[
+        'brandname.unique'=>'This brand has already been added!',
+        'brandname.required'=>'Brand name is required!',
+        'brandname.alpha'=>'Brand name must be letters only!'
+    ]);
+
+    if( $bran->fails()){
+        return response()->json([
+            'status'=> 400,
+            'message'=>$bran->errors()
+       ]);
+    }else{
+
+        $brand = new Brand ;
+       $brand->brand = $requ->brandname;
+       $brand->save();
+       return response()->json([
+            'status'=> 200,
+            'message'=> $requ->brandname.'  brand added successful'
+       ]);
+
+
+    }
+  }
+
+  public function getbrand(){
+
+    $brands = Brand::get();
+    return response()->json(['brands'=> $brands]);
+  }
+
+  
+  public function editbrand(Request $req){
+
+    $val = Validator::make($req->only('brandname','id'),[
+
+        'brandname'=> 'required|alpha|unique:brands,brand',
+    ],[
+        'brandname.unique'=>'This brand has already been added!',
+        'brandname.required'=>'Brand name is required!',
+        'brandname.alpha'=>'Brand name must be letters only!'
+
+    ]);
+   // dd($req->id);
+
+   if($val->fails()){
+        return response()->json([
+            'status'=>400,
+            'message'=> $val->errors()
+        ]);
+
+   }else{
+
+        if(DB::table('brands')->where('id',$req->id)->update(['brand'=>$req->brandname])){
+            return response()->json([
+                'status'=>200,
+                'message'=> $req->brandname.'  Brand has been updated successfully'
+            ]);
+        }
+
+
+
+   }
+
+}
+
+
+
+
 
 
 

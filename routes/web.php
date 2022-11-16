@@ -23,11 +23,21 @@ Auth::routes();
 Route::get('/',[Productupload::class,'product'])->name('/');
 
 
+Route::get('subcatproducts/{id}',[Productupload::class,'subcatproducts'])->name('subcatproducts');
+
+Route::post('filter',[Productupload::class,'filter'])->name('filter');
+
 Route::get('products/{cat}',[Productupload::class,'products'])->name('products');
+
+Route::get('/getbrand', [Admincontroller::class,'getbrand'])->name('getbrand');
+
+Route::post('search',[Productupload::class,'search'])->name('search');
 
 Route::get('cart',[CartController::class,'cart'])->name('cart');
 
 Route::get('cart_product',[CartController::class,'cart_product'])->name('cart_product');
+
+Route::get('subtotal',[CartController::class,'subtotal'])->name('subtotal');
 
 Route::get('removeaddcart',[CartController::class,'removeaddcart'])->name('removeaddcart');
 
@@ -46,6 +56,7 @@ Route::post('editproduct', [Productupload::class,'editproduct'])->name('editprod
 Route::post('deletemainimage', [Productupload::class,'deletemainimage'])->name('deletemainimage');
 
 Route::post('deleteallimages', [Productupload::class,'deleteallimages'])->name('deleteallimages');
+
 
 Route::get('geteditproduct/{id}',[Productupload::class,'geteditproduct'])->name('geteditproduct');
 
@@ -114,6 +125,8 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         Route::view('/editorsreg', 'Admin.Editorreg')->name('editorsreg');
 
+        Route::view('/brand', 'Admin.Brands')->name('brand');
+
         Route::post('/editorRegister', [Editorcontroller::class,'editorRegister'])->name('editorRegister');
 
         Route::view('/categorysub', 'Admin.Categorysub')->name('categorysub');
@@ -123,6 +136,11 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/getcategory', [Admincontroller::class,'getcategory'])->name('getcategory');
 
         Route::post('/editcategory', [Admincontroller::class,'editcategory'])->name('editcategory');
+
+        Route::post('/addbrand', [Admincontroller::class,'addbrand'])->name('addbrand');
+
+        Route::post('/editbrand', [Admincontroller::class,'editbrand'])->name('editbrand');
+
 
         Route::post('/addsubcategory', [Admincontroller::class,'addsubcategory'])->name('addsubcategory');
 

@@ -888,11 +888,11 @@
                         <div class="row mx-auto ">
                             <div class="col">
                                 <ul class="list-group mx-auto">
-                                  <li class="list-group-item d-flex ">
+                                  <li class="list-group-item d-flex submitfilterd">
                                     <span class="badge mr-2 text-dark rounded-circle">
                                         <i class="fa fa-home" aria-hidden="true"></i>
                                     </span>
-                                    Cras justo odio
+                                    Cras justo o
                                   </li>
                                   <li class="list-group-item d-flex ">
                                     <span class="badge mr-2 text-dark rounded-circle">
@@ -924,33 +924,31 @@
 
                         <div class="row mt-2  mx-auto " style="width: 100%;">
 
-                            <div class="accordion accordion-flush " id="accordionFlushExample">
+                            <div class="accordion accordion-flush " id="accordionFlushExampleindex">
 
                                 @foreach ($category as $categories)
 
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingOne">
-                                            <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $categories['categoryname'] }}" aria-expanded="false" aria-controls="{{ $categories['categoryname'] }}">
-                                               <i class="fas fa-dot-circle mr-2"></i> {{ $categories['categoryname'] }}
+                                            <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $categories['categoryname'] }}index" aria-expanded="false" aria-controls="{{ $categories['categoryname'] }}index">
+                                                <i class="fas fa-caret-down mr-2"></i> {{ $categories['categoryname'] }}
                                             </button>
                                         </h2>
-                                        <div id="{{ $categories['categoryname'] }}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div id="{{ $categories['categoryname'] }}index" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExampleindex">
                                             <div class="accordion-body ">
 
                                                 <div class="row ">
-                                                    <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                        <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                    </div>
+
+                                                    <a href="#" class="card shadow rounded m-1 col-2 p-1">
+                                                        <i class="fa fa-arrow-right text-center mt-2" style="font-size: 20px;"  aria-hidden="true"></i>
+                                                    </a>
 
 
                                                         @foreach ($categories['subcat'] as $sub)
-                                                            <div class="card shadow rounded m-1 col-2 p-1">
+                                                            <a href="subcatproducts/{{$sub->id}}" class="card shadow rounded m-1 col-2 p-1">
                                                                 <img src="{{ $sub->image}}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                            </div>
+                                                            </a>
                                                         @endforeach
-
-
-
 
                                                 </div>
 
@@ -1060,7 +1058,7 @@
 
                 </div>
 
-                <div class="row bigscreen   mt-3">
+                <div class="row bigscreen   mt-3 ">
                     @foreach ($products as $product)
                         <div class="  thediv  mx-auto p-2 mt-5  shadow-lg rounded ">
 
@@ -1093,7 +1091,27 @@
                 </div>
 
 
+                @if ( session('errrorfilter') )
 
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+
+
+                   <li class="">
+                       {{ session('errrorfilter') }}
+                   </li>
+
+
+                </div>
+
+               <script>
+                   var alertList = document.querySelectorAll('.alert');
+                   alertList.forEach(function (alert) {
+                   new bootstrap.Alert(alert)
+                   })
+               </script>
+               @endif
 
 
 

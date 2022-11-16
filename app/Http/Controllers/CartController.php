@@ -47,28 +47,24 @@ class CartController extends Controller
 
             );
            
-
+            $qtybigger = "";
          if(Cookie::get('cart')){
               $cartid = Cookie::get('cart');
             $incart = Cart::findorfail($cartid);
             $previousitem = json_decode($incart->items,true);
-            //$arr = Arr::exists($previousitem,  $item[0]);
+            
             $item_match = 0;
             $new_item = array();
 
             foreach( $previousitem as $ptiem){
-                if($item[0]['productid'] == $ptiem['productid'] && $item[0]['size'] == $ptiem['size'] && $item[0]['colour'] == $ptiem['colour'] && $item[0]['price'] == $ptiem['price']){
+                if($ptiem['productid'] == $item[0]['productid'] && $ptiem['size'] == $item[0]['size']  && $ptiem['colour'] == $item[0]['colour']  &&  $ptiem['price'] == $item[0]['price']){
 
                     $ptiem['quantity'] = $ptiem['quantity'] + $item[0]['quantity'];
 
-                    if($ptiem['quantity'] > $item[0]['available']){
+                    if($ptiem['quantity'] >= $item[0]['available']){
                         $ptiem['quantity'] = $item[0]['available'];
 
-                        return response()->json([
-                            'status'=>201,
-                            'identify'=>$item[0]['size'].$item[0]['colour'],
-                            'message'=> 'Maximum Quantity of '.$item[0]['available'].' reached!'
-                        ]);
+                        $qtybigger = 'Note : max reached only '.$ptiem['quantity'].' items were added to cart';
                     }
 
                     $item_match = 1;
@@ -91,10 +87,12 @@ class CartController extends Controller
 
                 Cookie::queue('cart', $cartid, $cartexpire);
                 
+               
     
                 return response()->json([
                     'status'=>200,
-                    'message'=> 'Product added to cart'
+                    'message'=> 'Product added to cart',
+                    'qtybigger'=>$qtybigger
                 ]);
             }
           
@@ -113,7 +111,8 @@ class CartController extends Controller
 
             return response()->json([
                 'status'=>200,
-                'message'=> 'Product added to cart '
+                'message'=> 'Product added to cart ',
+                'qtybigger'=>''
             ]);
 
 
@@ -135,13 +134,40 @@ class CartController extends Controller
             $car = $car + $ca->quantity;
           }
           //$cart_count = count($cart1);
+          
           return response()->json([
              'status'=>200,
              'message'=>  $car
           ]);
         }else{
             return response()->json([
-                'status'=>400,
+                'status'=>200,
+                'message'=> 0
+             ]);
+
+        }
+    }
+
+     public function subtotal(){
+        if(Cookie::get('cart')){
+            $cart_id = Cookie::get('cart');
+
+
+          $cart =  DB::table('carts')->where('id', $cart_id)->value('items');
+          $cart1 = json_decode($cart);
+          $car = 0;
+          foreach( $cart1 as $ca){
+            $car =  $car + $ca->price * $ca->quantity;
+          }
+          //$cart_count = count($cart1);
+          
+          return response()->json([
+             'status'=>200,
+             'message'=>  $car
+          ]);
+        }else{
+            return response()->json([
+                'status'=>200,
                 'message'=> 0
              ]);
 
@@ -160,7 +186,7 @@ class CartController extends Controller
          
         }else{
 
-            return view('Mainpage.Cart',['cart1'=>'kkkkkkkkkkkk']);
+            return view('Mainpage.Cart',['cart1'=>'']);
         }
     }
 

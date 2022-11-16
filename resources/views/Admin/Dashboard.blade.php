@@ -252,10 +252,11 @@
                                                 <input type="file" class="form-control-file" name="images[]" id="images" placeholder="images" aria-describedby="fileHelpId"  multiple>
                                             </div>
 
-
                                             <div class="col-md-4 mt-2">
-                                                        <label for="brand" class="form-label">Brand</label>
-                                                        <input type="text" name="brand" value="{{ old('brand') }}" class="form-control form-control-sm" id="brand" >
+                                                <label for="brandp">Brands</label>
+                                                <select class="custom-select custom-select-sm brandp" name="brand" id="brandp">
+                                                <option selected></option>
+                                                </select>
                                             </div>
 
                                             <div class="col-md-4 mt-2">
@@ -306,6 +307,15 @@
                                             <div class="col-md-4 mt-2">
                                                     <label for="search">Posible search</label>
                                                     <textarea class="form-control" name="search" value="{{ old('search') }}" id="search" rows="3"></textarea>
+                                                    <div class=" p-1 rounded" style="background-color: black;">
+                                                        <p style="color: white;">
+                                                            Note : Posible search helps customers to find your products easily
+                                                            please write down keywords related to your product without comma
+                                                            eg: if the product is men's shoes your keywords could be
+                                                            men zara leather shoes and more..
+
+                                                        </p>
+                                                    </div>
                                             </div>
 
 
@@ -425,9 +435,11 @@
 
 
 
-                                                <div class=" col-lg-4 mt-2">
-                                                        <label for="brand" class="form-label">Brand</label>
-                                                        <input type="text" name="brand" value="{{ old('brand') }}" class="form-control form-control-sm" id="editbrand" >
+                                                <div class="col-md-4 mt-2">
+                                                    <label for="brand">Brands</label>
+                                                    <select class="custom-select custom-select-sm brandp" name="brand" id="">
+                                                    <option selected></option>
+                                                    </select>
                                                 </div>
 
                                                 <div class=" col-lg-4 mt-2">

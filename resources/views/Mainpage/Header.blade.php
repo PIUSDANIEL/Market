@@ -24,20 +24,24 @@
          <!-- Google Fonts -->
          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
 
-         <!--Sweet alert---->
-         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!--jquery--->
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
 
         <!---css  -->
         <link rel="stylesheet"  href="{{ asset('css/market.css') }}" >
-       
 
-            <!-- jQuery 1.8 or later, 33 KB -->
 
-            <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
              <!-- js --->
-        <script type="text/javascript" src="{{ asset('js/market.js') }}" ></script>
-        
+           <script type="text/javascript" src="{{ asset('js/market.js') }}" ></script>
+
+
+
+
+            <!--Sweet alert---->
+         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
             <!-- Fotorama from CDNJS, 19 KB -->
             <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
@@ -59,7 +63,7 @@
 
     </head>
     <body class="antialiased">
-        <div class="container-fluid ">
+        <div class="container-fluid maincontainer">
 
                 {{-- -bigger screen --}}
 
@@ -76,14 +80,13 @@
 
                     </div>
 
-                    <div class="col-4 p-0">
-                        <a href="#">
-                            <div class="input-group p-0 rounded">
-                                <input type="text" name="search" id="search" class="form-control form-control-sm rounded" placeholder="Search" aria-describedby="suffixId">
-                                <span class="input-group-text" id="suffixId"><i class="fa fa-search" aria-hidden="true"></i></span>
-                            </div>
-                        </a>
+                    <div class="col-2 p-0">
+                        <button type="button" class="btn btn-sm  m-0" data-bs-toggle="modal" data-bs-target="#modalId">
+                            Search <span class="badge bg-dark"><i class="fa-solid fa-search" aria-hidden="true"></i></span>
+                        </button>
                     </div>
+
+
 
                     <div class="col-md-3 col-lg-2 d-flex  ">
 
@@ -264,7 +267,7 @@
                             <div class="card   p-0 ms-auto " style="border-radius:10px; width:70px; height:26px; background-color: transparent; ">
                                 <img src="{{ asset('images/shopping-cart.png') }}" width="25px" height="25px" class="img-fluid rounded  " alt="cart">
                                 <div class="card-img-overlay ">
-                                    <p class=" ml-4 mt-n3 mycart bold" id=""  style="color:black; "></p>
+                                    <p class=" ml-4 mt-n3 mycart bold" id=""  style="color:black;font-weight: 700; "></p>
                                 </div>
                             </div>
                         </a>
@@ -284,10 +287,10 @@
                     </div>
 
                     <div class="col-1">
-                        <div class="card " style="border-radius:10px; width:26px; height:26px;">
+                        <a href="{{ asset('/') }}" class="card " style="border-radius:10px; width:26px; height:26px;">
                             <img src="{{ asset('images/flea.jpg') }}" width="26px" height="26px" class="img-fluid rounded" alt="fleamarket logo">
 
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-4">
@@ -469,21 +472,29 @@
                             <div class="card  p-0 ms-auto " style="border-radius:10px; width:70px; height:30px; background-color: transparent; ">
                                 <img src="{{ asset('images/shopping-cart.png') }}" width="30px" height="30px" class="img-fluid rounded  " alt="cart">
                                 <div class="card-img-overlay ">
-                                    <h6 class=" ml-4 mt-n2 rounded-circle mycart" style="width: 22px; height:22px; color:black; "></h6>
+                                    <h6 class=" ml-4 mt-n2 rounded-circle mycart bold" style="width: 22px; height:22px; font-weight: 700; color:black; "></h6>
                                 </div>
                             </div>
                        </a>
                     </div>
 
 
-                    <div class="col-12  mt-1 mb-n2">
-                        <a href="#">
-                            <div class="input-group p-0">
-                                <input type="text" name="name" id="name" class="form-control form-control-sm" placeholder="placeholder" aria-describedby="suffixId">
-                                <span class="input-group-text" id="suffixId"><i class="fa fa-search" aria-hidden="true"></i></span>
-                            </div>
-                        </a>
+                    <div class="col-12 d-flex mt-1 mb-n2">
+
+                        <button type="button" class="btn btn-sm  m-0" data-bs-toggle="modal" data-bs-target="#modalId">
+                            Search <span class="badge bg-dark"><i class="fa-solid fa-search" aria-hidden="true"></i></span>
+                        </button>
+
+                        @if (Route::currentRouteName() == 'subcatproducts'  )
+                            <button type="button" class="btn btn-sm ms-auto m-0" data-bs-toggle="modal" data-bs-target="#filterModal">
+                                Filter <span class="badge bg-dark"><i class="fa-solid fa-arrow-up-wide-short" aria-hidden="true"></i></span>
+                            </button>
+                        @endif
+
+
                     </div>
+
+
                  </div>
 
 
@@ -508,15 +519,16 @@
                                             <div class="accordion-body ">
 
                                                 <div class="row ">
-                                                    <div class="card shadow m-1 rounded-circle col-2 p-1">
-                                                        <img src="{{ asset('images/all.png') }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
-                                                    </div>
+                                                    <a href="#" class="card shadow rounded m-1 col-2 p-1">
+                                                        <i class="fa fa-arrow-right text-center mt-2" style="font-size: 25px;"  aria-hidden="true"></i>
+                                                    </a>
+
                                                     @foreach ($categories['subcat'] as $sub)
-                                                        <a href="#" class="card shadow rounded m-1 col-2 p-1">
+                                                        <a href="subcatproducts/{{$sub->id}}" class="card shadow rounded m-1 col-2 p-1">
                                                             <img src="{{ asset($sub->image) }}" class=" card-img-top"  alt="Sunset Over the Sea"/>
                                                         </a>
                                                     @endforeach
-          
+
                                                 </div>
 
                                             </div>
@@ -530,5 +542,682 @@
 
                     </div>
                 </div>
+
+
+
+                <!-- Modal Search -->
+                <div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header">
+
+                                            <div class="col-10 col-sm-6 modal-title" id="modalTitleId">
+                                                <div class=" input-group p-0 rounded">
+                                                    <input type="text" name="search"
+                                                    id="searchpro" class="form-control form-control-sm rounded "
+                                                     placeholder="Search Product" aria-describedby="suffixId">
+                                                    <span class="input-group-text" id="suffixId"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                </div>
+                                                @csrf
+                                            </div>
+
+
+
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <div class="modal-body">
+                                <div class="container-fluid ">
+                                    <div class="row appensearch">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    var modalId = document.getElementById('modalId');
+
+                    modalId.addEventListener('show.bs.modal', function (event) {
+                          // Button that triggered the modal
+                          let button = event.relatedTarget;
+                          // Extract info from data-bs-* attributes
+                          let recipient = button.getAttribute('data-bs-whatever');
+
+                        // Use above variables to manipulate the DOM
+                    });
+                </script>
+
+
+                {{-- DETAILS MODAL --}}
+                <!-- Modal -->
+                <div class="modal custom fade rounded " id="detailsModal" tabindex="-1"    aria-labelledby="detailsModalLabel" aria-hidden="true" >
+                    <div class="modal-dialog  modal-dialog-scrollable  modal-xl  rounded" >
+                        <div class="modal-content " >
+                            <div class="modal-header">
+                                <h5 class="modal-title alert-success p-1" id="detailsModalLabel"></h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-lg-6">
+
+                                        <div id="carouselExampleCaptions" class="carousel  slide rounded" data-bs-ride="carousel">
+
+                                            <div class="carousel-inner caro rounded">
+
+                                            </div>
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 col-lg-6">
+                                        <h6 class="mt-2" id="detailsname"></h6 cla>
+                                        <p id="detailsbrand">Brand: XIAOMI | Similar products from XIAOMI</p>
+                                        <p class="small">
+                                            <i class="fa fa-star small" aria-hidden="true"></i>
+                                            <i class="fa fa-star small" aria-hidden="true"></i>
+                                            <i class="fa fa-star small" aria-hidden="true"></i>
+                                            <i class="fa fa-star small" aria-hidden="true"></i>
+                                            <i class="fa fa-star small" aria-hidden="true"></i>
+                                        </p>
+                                        <hr>
+                                        <p class="money" id="detailsprice"></p>
+                                        <p class="" ><del class="mr-4" id="detailslistprice"> </del>    <span style="background-color: rgba(238, 0, 0, 0.114);" class="ml-4 rounded p-1 text-danger" id="detailspercent"> </span></p>
+                                        <p><i class="fa fa-heart" aria-hidden="true"></i> Add to wishlist</p>
+                                        <div class="row alert-danger quantity-error"></div>
+
+                                        <div class="row" id="detailsize"></div>
+
+                                        <div class="card" >
+
+                                            <div class="card-body">
+                                                <p class="card-title" id="detailsseller">Seller's information</p>
+                                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample1">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingOne1">
+                                                <button class="accordion-button collapsed p-2 text-info" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne1" aria-expanded="false" aria-controls="flush-collapseOne1">
+                                                    Product description
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseOne1" class="accordion-collapse collapse" aria-labelledby="flush-headingOne1" data-bs-parent="#accordionFlushExample1">
+                                                <div class="accordion-body" id="detailsdesc">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the first item's accordion body.</div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingTwo2">
+                                                <button class="accordion-button collapsed p-2 text-info" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo2" aria-expanded="false" aria-controls="flush-collapseTwo2">
+                                                Specification
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseTwo2" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo2" data-bs-parent="#accordionFlushExample1">
+                                                <div class="accordion-body" id="detailsspec">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4 ">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <span class=" rounded px-3 text-white bg-info" >Similar product</span>
+
+                                    </div>
+
+                                    <div class="loop owl-carousel owl-theme mt-1 p-1" id="">
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="row mt-4 ">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <span class=" rounded px-3 text-white bg-info" >Customers also viewed</span>
+
+                                    </div>
+
+                                    <div class="loop owl-carousel owl-theme mt-1 p-1" id="">
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-4 ">
+                                    <div class="col-12 d-flex justify-content-between">
+                                        <span class=" rounded px-3 text-white bg-info" >You may also like these</span>
+
+                                    </div>
+
+                                    <div class="loop owl-carousel owl-theme mt-1 p-1" id="">
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item">
+                                            <div class="card mycard shadow rounded" style="">
+                                                <img src="{{ asset('images/images(5).jpg') }}" class="card-img-top"  height='80' alt="Sunset Over the Sea"/>
+                                                <div class="card-body px-1">
+                                                    <div class="col-12 mt-n3 productcard "><p>Nike sneakers mmmmmmm</p></div>
+                                                    <div class="col-12 mt-n3 mb-n3"><h6>&#8358; 40,000</h6></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-info btn-sm">Add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Filter MODAL only small screen--}}
+                <!-- Modal -->
+                <div class="modal custom fade rounded " id="filterModal" tabindex="-1"    aria-labelledby="filterModalLabel" aria-hidden="true" >
+                    <div class="modal-dialog  modal-dialog-scrollable  modal-xl  rounded" >
+                        <div class="modal-content " >
+                            <div class="modal-header">
+                                <h5 class="modal-title p-1 rounded" style="background-color:#cbd5e0 ;" id="filterModalLabel">Filter Product</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <form id="submitfiltersmall"  >
+                                    @csrf
+                                    <div class="col-lg-3 rounded" >
+                                        <div class="accordion accordion-flush " id="accordionFlushExample">
+                                            @foreach ($category as $categories)
+
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingOne">
+                                                        <button class="accordion-button collapsed p-1 small" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $categories['categoryname'] }}filter" aria-expanded="false" aria-controls="{{ $categories['categoryname'] }}filter">
+                                                        <i class="fas fa-caret-down mr-2 small"></i> {{ $categories['categoryname'] }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="{{ $categories['categoryname'] }}filter" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                        <div class="accordion-body ">
+
+                                                            <div class="row ">
+
+                                                                    @foreach ($categories['subcat'] as $sub)
+                                                                        <div class="card shadow rounded m-1 col-2 p-1">
+                                                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                                                <input type="radio" class="btn-check" name="subcategory" id="{{ $sub->id }}" value="{{ $sub->id }}" autocomplete="off">
+                                                                                <label class="btn btn-outline-primary p-0" for="{{ $sub->id }}">
+                                                                                    <div class="col-12">
+                                                                                        <img src="{{ $sub->image}}" class="" style="width:100%; height:100%;"  alt="Sunset Over the Sea"/>
+                                                                                    </div>
+
+                                                                                </label>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    @endforeach
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-9">
+                                            <div class="row ">
+                                                <div class="col-lg-6 mt-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Product Name</span>
+                                                        <input type="text" name="productname" class="form-control form-control-sm" aria-label="">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <div class="input-group">
+                                                    <span class="input-group-text">Price</span>
+                                                    <input type="number" name="minprice" aria-label="First name" class="form-control form-control-sm" placeholder="Min price" min="1" >
+                                                        <p class="mx-2" style="color: black;">to</p>
+                                                    <input type="number"  name="maxprice" aria-label="Last name" class="form-control form-control-sm" placeholder="Max price" min="1" >
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mt-3 ">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="highlow" value="high" id="flexRadioDefault">
+                                                    <label class="form-check-label" for="flexRadioDefault">
+                                                    Highest to Lowest
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="highlow" value="low" id="flexRadioDefault2">
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Lowest to Highest
+                                                    </label>
+                                                </div>
+                                                </div>
+
+                                                <div class="col-md-6 mt-3 ">
+
+                                                    <div class="form-check form-check-inline px-4" style="background-color:#cbd5e0 ; color:black;">
+                                                        <input class="form-check-input" type="checkbox" name="latest" id="inlineCheckbox1" value="1">
+                                                        <label class="form-check-label medium" for="inlineCheckbox1">Latest Product</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <h6 class="w-25 p-1 rounded khhh" style="background-color:#cbd5e0 ; color:black;">Brand</h6>
+
+                                                    <div class="row ml-2">
+                                                        <div class="list-group filterbrandss" id="">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <h6 class="w-75 p-1 rounded " style="background-color:#cbd5e0 ; color:black;">Percentage Discount</h6>
+
+                                                    <div class="list-group">
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="50">
+                                                            50% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="40">
+                                                            40% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="30">
+                                                            30% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="20">
+                                                            20% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="10">
+                                                        10% and more
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <h6 class="w-75 p-1 rounded " style="background-color:#cbd5e0 ; color:black;">Product Rating</h6>
+
+                                                    <div class="list-group">
+
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="4">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                            & above
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="3">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                            & above
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="2">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                            & above
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="1">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                        & above
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                    </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">Apply<i class="fa-solid fa-arrow-up-wide-short" aria-hidden="true"></i></button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
 
 

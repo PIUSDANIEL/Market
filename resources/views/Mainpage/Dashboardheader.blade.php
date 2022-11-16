@@ -380,7 +380,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <i class="fa fa-bolt nav-icon" aria-hidden="true"></i>
                 <p>
                     Featured and Flash
-                
+
                 </p>
                 </a>
             </li>
@@ -390,13 +390,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <li class="nav-item">
                 <a href="{{ route('admin.categorysub') }}" class="nav-link text-dark" style="cursor:pointer;" >
                 <i class="fa fa-list-alt nav-icon " aria-hidden="true"></i>
-         
+
                 <p>
                     Add Category
                 </p>
                 </a>
             </li>
           @endif
+
+          @if (Auth::guard('admin')->user())
+          <li class="nav-item">
+              <a href="{{ route('admin.brand') }}" class="nav-link text-dark" style="cursor:pointer;" >
+              <i class="fas fa-tags nav-icon " aria-hidden="true"></i>
+              <p>
+                 Brands
+              </p>
+              </a>
+          </li>
+        @endif
 
           @if (Auth::guard('seller')->user())
                 <li class="nav-item">
@@ -446,7 +457,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
           @endif
 
-          
+
 
 
         </ul>

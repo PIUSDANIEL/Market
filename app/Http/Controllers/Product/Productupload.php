@@ -554,9 +554,11 @@ class Productupload extends Controller
    public function detailsmodal($id){
 
         $product = DB::table('products')
-                        ->where('id',$id)
-                        ->where('deleted', 0)
+                        ->join('brands','brands.id','=','products.brand')
+                        ->where('products.id',$id)
+                        ->where('products.deleted', 0)
                         ->get();
+
         if(count($product) == 0){
 
             return response()->json([
@@ -574,7 +576,152 @@ class Productupload extends Controller
 
    }
 
-  
+   public function search(Request $search){
+        $vali = validator::make($search->only('search'),[
+            'search' => 'required|string'
+        ]);
+
+        if($vali->fails()){
+            return response()->json([
+                'status'=> 400,
+                'message' => $vali->errors()
+            ]);
+
+        }else{
+
+            $query = preg_split('/\s+/',$search->search, -1, PREG_SPLIT_NO_EMPTY) ;
+
+
+            $searches = Product::where(function ($q) use ($query){
+                foreach( $query as $valu){
+                    $q->Where('search','like', "%{$valu}%");
+                }
+            })->get();
+            $searchess = '';
+            foreach($searches as $roe){
+                $searchess .= '<div class="col-12 col-sm-6 shadow-lg rounded mt-2" data-bs-toggle="modal" data-bs-target="#detailsModal" onclick="detailsmodal('.$roe->id.')">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="'.$roe->main_image.'" class="img-fluid rounded">
+                                    </div>
+                                    <div class="col-9 ">
+                                        <p class="small productcard">'.$roe->productname.'</p>
+                                        <p class="mt-n3 small">&#8358;'.$roe->price.'</p>
+                                    </div>
+                                </div>
+                             </div>';
+
+            }
+
+
+
+            if(count($searches) > 0){
+                    return response()->json([
+                        'status' => 200,
+                        'message' => $searchess
+                    ]);
+            }else{
+                return response()->json([
+                    'status' => 201,
+                    'message' => 'Product search is empty !'
+                ]);
+            }
+
+        }
+   }
+
+   public function filter(Request $filter){
+        $val = validator::make($filter->only('subcategory','productname','minprice','maxprice',
+        'highlow',
+        'brand',
+        'percentage',
+        'rating','latest'),[
+
+            "subcategory" => "integer|nullable",
+            "productname" => "string|nullable",
+            "minprice" => "integer|nullable",
+            "maxprice" => "integer|nullable",
+            "highlow" => "string|nullable",
+            "brand" => "integer|nullable",
+            "percentage" => "integer|nullable",
+            "rating" => "integer|nullable",
+            "latest" => "integer|nullable"
+        ]);
+
+        if($val->fails()){
+
+            return back()->with('errrorfilter','Oops something went wrong');
+        }else{
+
+            $query = Product::query();
+            if($filter->productname != ""){
+                $query->where('productname',$filter->productname);
+            }
+
+            if($filter->brand != ""){
+                $query->where('brand',$filter->brand);
+            }
+
+            if($filter->subcategory != ""){
+                $query->where('sub_categories',$filter->subcategory);
+            }
+
+            if($filter->percentage != ""){
+                $query->where('percentage','>=',$filter->percentage);
+            }
+
+            if($filter->minprice != "" && $filter->maxprice != ""){
+                $query->where('price', '>=', $filter->minprice);
+            }
+
+            if($filter->minprice != "" && $filter->maxprice != ""){
+                $query->where('price', '<=', $filter->maxprice);
+            }
+
+            if($filter->highlow != "" && $filter->highlow == "high"){
+                    $query->orderBy('price', 'desc');
+            }
+
+
+            if($filter->highlow != "" && $filter->highlow == "low"){
+                    $query->orderBy('price', 'asc');
+            }
+
+            if($filter->latest != "" && $filter->latest == "1"){
+                $query->latest();
+            }
+
+
+
+
+            $productfilter = $query->get();
+
+            if(count($productfilter) > 0){
+                return response()->json([
+                    'status'=> 200,
+                    'message'=> $productfilter
+                ]);
+            }
+
+            if(count($productfilter) < 1){
+                return response()->json([
+                    'status'=> 201
+                ]);
+            }
+
+        }
+   }
+
+   public function subcatproducts($id){
+        $prod = DB::table('products')
+                ->where('sub_categories',$id)
+                ->where('deleted',0)
+                ->get();
+
+        return view('Mainpage.Subcat', compact('prod'));
+   }
+
+
 
 
 

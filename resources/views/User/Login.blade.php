@@ -1,4 +1,4 @@
-@includeIf('Mainpage.Header')
+@include('Mainpage.Header')
 
 <div class=" row  registerrow bringitdownreglog mx-auto">
 
@@ -91,4 +91,4 @@
 
 </div>
 
-@includeIf('Mainpage.Footer')
+@include('Mainpage.Footer')

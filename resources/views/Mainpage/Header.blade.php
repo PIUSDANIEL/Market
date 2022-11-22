@@ -491,6 +491,12 @@
                             </button>
                         @endif
 
+                        @if (Route::currentRouteName() == 'products'  )
+                            <button type="button" class="btn btn-sm ms-auto m-0" data-bs-toggle="modal" data-bs-target="#cateprodModal">
+                                Filter <span class="badge bg-dark"><i class="fa-solid fa-arrow-up-wide-short" aria-hidden="true"></i></span>
+                            </button>
+                        @endif
+
 
                     </div>
 
@@ -1020,7 +1026,9 @@
                             </div>
 
                             <div class="modal-body">
-
+                                <div class="row rounded mt-4" style="cursor: pointer;">
+                                    <h6 class="p-1 rounded  clear w-50" style="background-color: rgba(119, 119, 119, 0.407); color:black;">clear all</h6>
+                                </div>
                                 <form id="submitfiltersmall"  >
                                     @csrf
                                     <div class="col-lg-3 rounded" >
@@ -1209,6 +1217,213 @@
                         </div>
                     </div>
                 </div>
+
+                 {{-- category product Filter MODAL only small screen--}}
+                <!-- Modal -->
+                <div class="modal custom fade rounded small-screen" id="cateprodModal" tabindex="-1"    aria-labelledby="cateprodModalLabel" aria-hidden="true" >
+                    <div class="modal-dialog  modal-dialog-scrollable  modal-xl  rounded" >
+                        <div class="modal-content " >
+                            <div class="modal-header">
+                                <h5 class="modal-title p-1 rounded" style="background-color:#cbd5e0 ;" id="cateprodModalLabel">Filter Product</h5>
+
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="row rounded mt-4" style="cursor: pointer;">
+                                    <h6 class="p-1 rounded  clear w-50" style="background-color: rgba(119, 119, 119, 0.407); color:black;">clear all</h6>
+                                </div>
+                                <form id="categoryproductfilterbsmall"  >
+                                    @csrf
+                                    <div class="col-lg-3 rounded" >
+                                        <div class="accordion accordion-flush " id="accordionFlushExamplecatprod">
+                                            @foreach ($category as $categories)
+
+                                                <div class="accordion-item">
+                                                    <h2 class="accordion-header" id="flush-headingOnecatprod">
+                                                        <button class="accordion-button collapsed p-1 small" type="button" data-bs-toggle="collapse" data-bs-target="#cateprodfilt{{ $categories['id'] }}{{$categories['id']}}" aria-expanded="false" aria-controls="cateprodfilt{{ $categories['id'] }}{{$categories['id']}}">
+                                                        <i class="fas fa-caret-down mr-2 small"></i> {{ $categories['categoryname'] }}
+                                                        </button>
+                                                    </h2>
+                                                    <div id="cateprodfilt{{ $categories['id'] }}{{$categories['id']}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOnecatprod" data-bs-parent="#accordionFlushExamplecatprod">
+                                                        <div class="accordion-body ">
+
+                                                            <div class="row ">
+
+                                                                    @foreach ($categories['subcat'] as $sub)
+                                                                        <div class="card shadow rounded m-1 col-2 p-1">
+                                                                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                                                                <input type="radio" class="btn-check" name="subcategory" id="{{ $sub->id }}small" value="{{ $sub->id }}" autocomplete="off">
+                                                                                <label class="btn btn-outline-primary p-0" for="{{$sub->id }}small">
+                                                                                    <div class="col-12">
+                                                                                        <img src="{{ $sub->image}}" class="" style="width:100%; height:100%;"  alt="Sunset Over the Sea"/>
+                                                                                    </div>
+
+                                                                                </label>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    @endforeach
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-9">
+                                            <div class="row ">
+                                                <div class="col-lg-6 mt-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Product Name</span>
+                                                        <input type="text" name="productname" class="form-control form-control-sm" aria-label="">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <div class="input-group">
+                                                    <span class="input-group-text">Price</span>
+                                                    <input type="number" name="minprice" aria-label="First name" class="form-control form-control-sm" placeholder="Min price" min="1" >
+                                                        <p class="mx-2" style="color: black;">to</p>
+                                                    <input type="number"  name="maxprice" aria-label="Last name" class="form-control form-control-sm" placeholder="Max price" min="1" >
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 mt-3 ">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="highlow" value="high" id="flexRadioDefault">
+                                                    <label class="form-check-label" for="flexRadioDefault">
+                                                    Highest to Lowest
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="highlow" value="low" id="flexRadioDefault2">
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        Lowest to Highest
+                                                    </label>
+                                                </div>
+                                                </div>
+
+                                                <div class="col-md-6 mt-3 ">
+
+                                                    <div class="form-check form-check-inline px-4" style="background-color:#cbd5e0 ; color:black;">
+                                                        <input class="form-check-input" type="checkbox" name="latest" id="inlineCheckbox1" value="1">
+                                                        <label class="form-check-label medium" for="inlineCheckbox1">Latest Product</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <h6 class="w-25 p-1 rounded khhh" style="background-color:#cbd5e0 ; color:black;">Brand</h6>
+
+                                                    <div class="row ml-2">
+                                                        <div class="list-group filterbrandss" id="">
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <h6 class="w-75 p-1 rounded " style="background-color:#cbd5e0 ; color:black;">Percentage Discount</h6>
+
+                                                    <div class="list-group">
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="50">
+                                                            50% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="40">
+                                                            40% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="30">
+                                                            30% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="20">
+                                                            20% and more
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="percentage" value="10">
+                                                        10% and more
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-6 mt-3 ">
+                                                    <h6 class="w-75 p-1 rounded " style="background-color:#cbd5e0 ; color:black;">Product Rating</h6>
+
+                                                    <div class="list-group">
+
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="4">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                            & above
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="3">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                            & above
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="2">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                            <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                            & above
+                                                        </label>
+                                                        <label class="list-group-item small">
+                                                            <input class="form-check-input me-1" type="radio" name="rating" value="1">
+                                                            <i class="fa fa-star"  style="color:yellow ;" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+                                                        <i class="fa fa-star"  style="color:rgb(141, 137, 137);" aria-hidden="true"></i>
+
+                                                        & above
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                    </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="submit" class="btn btn-outline-info btn-sm" data-bs-dismiss="modal">Apply<i class="fa-solid fa-arrow-up-wide-short" aria-hidden="true"></i></button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+
+
 
 
 

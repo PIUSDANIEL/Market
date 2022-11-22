@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
@@ -546,11 +547,6 @@ class Productupload extends Controller
 
    }
 
-   public function products(){
-
-        return view('products');
-   }
-
    public function detailsmodal($id){
 
         $product = DB::table('products')
@@ -652,65 +648,189 @@ class Productupload extends Controller
 
             return back()->with('errrorfilter','Oops something went wrong');
         }else{
-
+    
             $query = Product::query();
-            if($filter->productname != ""){
+            if($filter->productname != "" && $filter->productname !== null){
                 $query->where('productname',$filter->productname);
             }
-
-            if($filter->brand != ""){
+    
+            if($filter->brand != "" && $filter->brand !== null){
                 $query->where('brand',$filter->brand);
             }
-
-            if($filter->subcategory != ""){
+    
+            if($filter->subcategory != "" && $filter->subcategory !== null){
                 $query->where('sub_categories',$filter->subcategory);
             }
-
-            if($filter->percentage != ""){
+    
+            if($filter->percentage != "" && $filter->percentage !== null){
                 $query->where('percentage','>=',$filter->percentage);
             }
-
-            if($filter->minprice != "" && $filter->maxprice != ""){
+    
+            if($filter->minprice != "" && $filter->maxprice != "" && $filter->maxprice !== null && $filter->minprice !== null){
                 $query->where('price', '>=', $filter->minprice);
             }
-
-            if($filter->minprice != "" && $filter->maxprice != ""){
+    
+            if($filter->minprice != "" && $filter->maxprice != "" && $filter->maxprice !== null && $filter->minprice !== null){
                 $query->where('price', '<=', $filter->maxprice);
             }
-
-            if($filter->highlow != "" && $filter->highlow == "high"){
+    
+            $query->where('deleted',0);
+    
+            if($filter->highlow != "" && $filter->highlow !== null){
+                if($filter->highlow == "high"){
                     $query->orderBy('price', 'desc');
+                }
+                   
             }
-
-
-            if($filter->highlow != "" && $filter->highlow == "low"){
+    
+    
+            if($filter->highlow != "" && $filter->highlow !== null){
+                if($filter->highlow == "low"){
                     $query->orderBy('price', 'asc');
+                }
+                  
             }
-
-            if($filter->latest != "" && $filter->latest == "1"){
-                $query->latest();
+    
+            if($filter->latest != "" && $filter->latest !== null){
+                if( $filter->latest == "1"){
+                    $query->latest();
+                }
+              
             }
-
-
-
-
-            $productfilter = $query->get();
-
+    
+    
+            if($filter->productname === null && $filter->brand === null && $filter->subcategory === null
+            && $filter->minprice === null && $filter->highlow === null && $filter->latest === null 
+            && $filter->maxprice === null && $filter->percentage === null ){
+    
+                $productfilter = array();
+            }else{
+                $productfilter = $query->get();
+              
+            }
+    
+           
+    
             if(count($productfilter) > 0){
                 return response()->json([
                     'status'=> 200,
                     'message'=> $productfilter
                 ]);
             }
-
+    
             if(count($productfilter) < 1){
                 return response()->json([
                     'status'=> 201
                 ]);
             }
-
+    
         }
    }
+
+   public function categoryprodfilter(Request $filter){
+    $val = validator::make($filter->only('subcategory','productname','minprice','maxprice',
+    'highlow',
+    'brand',
+    'percentage',
+    'rating','latest'),[
+
+        "subcategory" => "integer|nullable",
+        "productname" => "string|nullable",
+        "minprice" => "integer|nullable",
+        "maxprice" => "integer|nullable",
+        "highlow" => "string|nullable",
+        "brand" => "integer|nullable",
+        "percentage" => "integer|nullable",
+        "rating" => "integer|nullable",
+        "latest" => "integer|nullable"
+    ]);
+
+    //dd($filter->brand);
+
+    if($val->fails()){
+
+        return back()->with('errrorfilter','Oops something went wrong');
+    }else{
+
+        $query = Product::query();
+        if($filter->productname != "" && $filter->productname !== null){
+            $query->where('productname',$filter->productname);
+        }
+
+        if($filter->brand != "" && $filter->brand !== null){
+            $query->where('brand',$filter->brand);
+        }
+
+        if($filter->subcategory != "" && $filter->subcategory !== null){
+            $query->where('sub_categories',$filter->subcategory);
+        }
+
+        if($filter->percentage != "" && $filter->percentage !== null){
+            $query->where('percentage','>=',$filter->percentage);
+        }
+
+        if($filter->minprice != "" && $filter->maxprice != "" && $filter->maxprice !== null && $filter->minprice !== null){
+            $query->where('price', '>=', $filter->minprice);
+        }
+
+        if($filter->minprice != "" && $filter->maxprice != "" && $filter->maxprice !== null && $filter->minprice !== null){
+            $query->where('price', '<=', $filter->maxprice);
+        }
+
+        $query->where('deleted',0);
+
+        if($filter->highlow != "" && $filter->highlow !== null){
+            if($filter->highlow == "high"){
+                $query->orderBy('price', 'desc');
+            }
+               
+        }
+
+
+        if($filter->highlow != "" && $filter->highlow !== null){
+            if($filter->highlow == "low"){
+                $query->orderBy('price', 'asc');
+            }
+              
+        }
+
+        if($filter->latest != "" && $filter->latest !== null){
+            if( $filter->latest == "1"){
+                $query->latest();
+            }
+          
+        }
+
+
+        if($filter->productname === null && $filter->brand === null && $filter->subcategory === null
+        && $filter->minprice === null && $filter->highlow === null && $filter->latest === null 
+        && $filter->maxprice === null && $filter->percentage === null ){
+
+            $productfilter = array();
+        }else{
+            $productfilter = $query->get();
+          
+        }
+
+       
+
+        if(count($productfilter) > 0){
+            return response()->json([
+                'status'=> 200,
+                'message'=> $productfilter
+            ]);
+        }
+
+        if(count($productfilter) < 1){
+            return response()->json([
+                'status'=> 201
+            ]);
+        }
+
+    }
+   }
+
+
 
    public function subcatproducts($id){
         $prod = DB::table('products')
@@ -720,6 +840,16 @@ class Productupload extends Controller
 
         return view('Mainpage.Subcat', compact('prod'));
    }
+
+   public function products($id){
+        $prod = DB::table('products')
+                ->where('categories',$id)
+                ->where('deleted',0)
+                ->get();
+
+        return view('Mainpage.products', compact('prod'));
+   }
+
 
 
 

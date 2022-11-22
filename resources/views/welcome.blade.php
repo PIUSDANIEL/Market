@@ -1046,7 +1046,7 @@
                                     <img src="{{ $flas->main_image}}" class="card-img-top " style="height: 10rem;" alt="...">
                                     <div class="card-body px-1 py-0">
                                         <h6 class="card-title">{{$flas->productname}}</h6>
-                                        <p class="card-text">&#8358;{{ number_format($flas->price) }}</p>
+                                        <p class="card-text naira">&#8358;{{ number_format($flas->price) }}</p>
 
                                     </div>
                                 </div>
@@ -1075,7 +1075,7 @@
                                         <img src="{{$productdetail->main_image}}" class="card-img-top" style="height: 10rem;" alt="...">
                                         <div class="card-body px-1 py-0">
                                             <h6 class="card-title">{{$productdetail->productname }}</h6>
-                                            <p class="card-text">&#8358;{{ number_format($productdetail->price) }} </p>
+                                            <p class="card-text naira">&#8358;{{ number_format($productdetail->price) }} </p>
 
                                         </div>
                                     </div>

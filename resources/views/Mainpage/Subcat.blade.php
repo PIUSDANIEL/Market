@@ -1,9 +1,13 @@
 @include('Mainpage.Header')
 
+
     {{-- BIG SCREEN --}}
-   <div class="row after-header bigscreen">
+   <div class="row after-header subcatfilter bigscreen">
         <div class=" sidenav">
-            <form class="mt-5 mb-5" id="submitfilterbig">
+            <div class="row rounded mt-4" style="cursor: pointer;">
+                <h6 class="p-1 rounded  clear w-50" style="background-color: rgba(119, 119, 119, 0.407); color:black;">clear all</h6>
+            </div>
+            <form class="mt-1 mb-5" id="submitfilterbig">
                 @csrf
                 <div class="accordion accordion-flush " id="accordionFlushExamplefilter">
                     @foreach ($category as $categories)
@@ -181,23 +185,47 @@
             </form>
         </div>
 
-        <div class="ms-auto rightside ">
+        <div class="ms-auto rightside kkhgf">
+            <div class="row d-flex">
+                <h6 class="p-1 rounded w-25 ms-auto" onclick="closesss();"  style="background-color: rgba(119, 119, 119, 0.407); color:black; cursor: pointer;">Expand
+                    <i class="fa fa-expand" aria-hidden="true"></i>
+                </h6>
+            </div>
             <div class="row d-flex filterproduct">
-                @foreach ($prod as $products)
-                    <div class="card p-0 m-1 col-2 subcatprodd  " style="">
-                        <img src="{{ $products->main_image }}" class="card-img-top" alt="...">
-                        <div class="card-body p-1">
-                            <p class="card-text  small">{{ $products->productname }}</p>
-                            <p class="card-text mt-n3 small">{{ $products->price }}</p>
+
+                @if (count($prod) > 0)
+                    @foreach ($prod as $products)
+                        <div class="card p-0 m-2 cardcartpro categoryproduct2" onclick="detailsmodal({{$products->id}})" data-bs-toggle="modal" data-bs-target="#detailsModal">
+
+                            <img src="{{ $products->main_image }}" class="card-img" alt="...">
+                            @if ($products->percentage)
+                                <div class="card-img-overlay">
+                                    <span class="position-absolute top-1  translate-middle badge rounded-pill " style="color: red; background-color:rgba(127, 44, 44, 0.337);"">
+                                    <i class="fas fa-minus"></i> {{$products->percentage}}%
+                                    </span>
+                                </div>
+                            @endif
+                            <div class="card-body p-0">
+                                <p class="card-text small productcard">{{$products->productname}}</p>
+                                <p class="card-text naira mt-n3 small">&#8358;{{ number_format($products->price ) }}</p>
+                            </div>
                         </div>
+                    @endforeach
+
+
+                @else
+                    <div class="col-6 mx-auto rounded">
+                        <h6 class="text-bg-secondary rounded p-3">No product found... Search more product please</h6>
                     </div>
-                @endforeach
+
+                @endif
 
             </div>
+        </div>
 
-            {{-- -footer for big screen --}}
-            <div class="row  mx-auto  footer mt-3  " style="background-color:#6b7280 ; width:77.1%;">
-
+        {{-- footer --}}
+        <footer class=" mb-0  ms-auto footer footersubbig  " style="background-color:#6b7280 ; ">
+            <div class="row footerrow">
                 <div class="col-11 col-lg-5 mx-auto my-2 shadow" style="background-color:#00000000 ; border-radius:20px;">
                     <p class="text-white submitfilterd">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Praesentium et, ex exercitationem nobis minima architecto
@@ -212,11 +240,9 @@
                     Magni ad soluta blanditiis saepe?
                     </p>
                 </div>
-    
             </div>
-        </div>
+        </footer>
 
-        
    </div>
 
 
@@ -225,97 +251,56 @@
 
 
     {{-- SMALL SCREEN --}}
-    <div class="row after-header small-screen filterproduct">
+    <div class="row after-header  small-screen filterproduct">
 
-        @foreach ($prod as $products)
-            <div class="card p-0 m-1 col-2 subcatprodd  " style="">
-                <img src="{{ $products->main_image }}" class="card-img-top" alt="...">
-                <div class="card-body p-1">
-                    <p class="card-text  small">{{ $products->productname }}</p>
-                    <p class="card-text mt-n3 small">{{ $products->price }}</p>
+        @if (count($prod) > 0)
+            @foreach ($prod as $products)
+                <div class="card p-0 m-1 col-2 subcatprodd" onclick="detailsmodal({{$products->id}})" data-bs-toggle="modal" data-bs-target="#detailsModal">
+
+                    <img src="{{ $products->main_image }}" class="card-img" alt="...">
+                    @if ($products->percentage)
+                        <div class="card-img-overlay">
+                            <span class="position-absolute top-1  translate-middle badge rounded-pill " style="color: red; background-color:rgba(127, 44, 44, 0.337);"">
+                            <i class="fas fa-minus"></i> {{$products->percentage}}%
+                            </span>
+                        </div>
+                    @endif
+                    <div class="card-body p-0">
+                        <p class="card-text small productcard">{{$products->productname}}</p>
+                        <p class="card-text naira mt-n3 small">&#8358;{{ number_format($products->price ) }}</p>
+                    </div>
                 </div>
+            @endforeach
+
+
+        @else
+            <div class="col-11 mx-auto rounded">
+                <h6 class="text-bg-secondary rounded p-3">No product found... Search more product please</h6>
             </div>
-        @endforeach
+
+        @endif
 
     </div>
 
-  {{-- footer smsll screen--}}
-<div class="row footer mt-3 small-screen" style="background-color:#6b7280 ;">
+    {{-- footer --}}
+    <footer class="row mb-0  footer  small-screen" style="background-color:#6b7280 ;">
+        <div class="row footerrow">
+            <div class="col-11 col-lg-5 mx-auto my-2 shadow" style="background-color:#00000000 ; border-radius:20px;">
+                <p class="text-white submitfilterd">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Praesentium et, ex exercitationem nobis minima architecto
+                assumenda eligendi autem quas amet perspiciatis unde, voluptate quasi sit.
+                Magni ad soluta blanditiis saepe?mm
+                </p>
+            </div>
+            <div class="col-11 col-lg-5 mx-auto my-2 shadow" style="background-color:#00000000 ; border-radius:20px; ">
+                <p class="text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Praesentium et, ex exercitationem nobis minima architecto
+                assumenda eligendi autem quas amet perspiciatis unde, voluptate quasi sit.
+                Magni ad soluta blanditiis saepe?
+                </p>
+            </div>
+        </div>
+    </footer>
 
 
-
-
-
-    <div class="col-11 col-lg-5 mx-auto my-2 shadow" style="background-color:#00000000 ; border-radius:20px;">
-        <p class="text-white submitfilterd">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium et, ex exercitationem nobis minima architecto
-        assumenda eligendi autem quas amet perspiciatis unde, voluptate quasi sit.
-        Magni ad soluta blanditiis saepe?mm
-        </p>
-    </div>
-    <div class="col-11 col-lg-5 mx-auto my-2 shadow" style="background-color:#00000000 ; border-radius:20px; ">
-        <p class="text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-        Praesentium et, ex exercitationem nobis minima architecto
-        assumenda eligendi autem quas amet perspiciatis unde, voluptate quasi sit.
-        Magni ad soluta blanditiis saepe?
-        </p>
-    </div>
-
-</div>
-
-
-    <!---jquery---->
-
-
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('.loop').owlCarousel({
-                center: true,
-                loop: true,
-                margin: 10,
-                responsive: {
-                    0: {
-                    items: 3
-                    },
-                    360: {
-                    items: 3
-                    },
-                    400: {
-                    items: 4
-                    },
-                    1000: {
-                    items: 10
-                    }
-                }
-                });
-
-            });
-
-            $(document).ready(function() {
-                var owl = $('.owl-carousel');
-                owl.owlCarousel({
-                margin: 10,
-                nav: false,
-                loop: true,
-                responsive: {
-                    0: {
-                    items: 2
-                    },
-                    600: {
-                    items: 3
-                    },
-                    1000: {
-                    items: 5
-                    }
-                }
-                })
-            });
-
-
-
-
-        </script>
 

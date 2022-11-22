@@ -1065,6 +1065,8 @@ $('#editsubcategory').submit(function (e) {
  });
 
  function detailsmodal(id){
+        console.log(id);
+
          $(".alert-danger").html('');
          $('#detailsname').html('');
          $('#detailsbrand').html('');
@@ -1078,8 +1080,8 @@ $('#editsubcategory').submit(function (e) {
          $('.caro').html('');
 
 
-       $.get("detailsmodal/"+id,function(response) {
-               // console.log(response.message);
+       $.get("/detailsmodal/"+id,function(response) {
+                console.log(response.message);
             if(response.status === 200){
                 $.each(response.message, function (key, detais) {
                     //$('#detailsprice').append('&#8358;');
@@ -1525,18 +1527,30 @@ $('#addbrand').submit(function (e) {
                     console.log(response.message);
 
                     $.each(response.message, function (key, product) {
-                         $('.filterproduct').append('<div class="card p-0 m-1 col-2 subcatprodd  " style="">'
-                            +'<img src="'+product.main_image+'" class="card-img-top" alt="...">'
-                            +'<div class="card-body p-1">'
-                               +'<p class="card-text  small">'+product.productname+'</p>'
-                               +'<p class="card-text mt-n3 small">'+product.price+'</p>'
-                            +'</div>'
-                          +'</div>');
+
+                        var naira =  new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(product.price);
+
+                         $('.filterproduct').append('<div class="card p-0 m-1 col-2 subcatprodd" onclick="detailsmodal('+product.id+')" data-bs-toggle="modal" data-bs-target="#detailsModal" style="">'
+                         +'<img src="'+product.main_image+'" class="card-img-top" alt="...">'
+
+                         +(product.percentage > 0 ? '<div class="card-img-overlay">'
+                         +'<span class="position-absolute top-1  translate-middle badge rounded-pill " style="color: red; background-color:rgba(127, 44, 44, 0.337);">'
+                             +'<i class="fas fa-minus"></i>'
+                             +product.percentage+'%'
+                             +'</span>'
+                         +'</div>':'' )
+                         +'<div class="card-body p-1">'
+                             +'<p class="card-text productcard small">'+product.productname+'</p>'
+                             +'<p class="card-text mt-n3 naira small">&#8358;'+naira+'</p>'
+                         +'</div>'
+                        +'</div>');
                     });
                 }
 
                 if(response.status === 201){
-
+                    $('.filterproduct').append('<div class="col-11 mx-auto rounded">'
+                     +'<h6 class="text-bg-secondary rounded p-3">No product found... Search more product please</h6>'
+                    +'</div>');
                 }
             }
         });
@@ -1567,36 +1581,175 @@ $('#addbrand').submit(function (e) {
                        console.log(response.message);
 
                        $.each(response.message, function (key, product) {
-                            $('.filterproduct').append('<div class="card p-0 m-1 col-2 subcatprodd  " style="">'
-                               +'<img src="'+product.main_image+'" class="card-img-top" alt="...">'
-                               +'<div class="card-body p-1">'
-                                  +'<p class="card-text  small">'+product.productname+'</p>'
-                                  +'<p class="card-text mt-n3 small">'+product.price+'</p>'
-                               +'</div>'
-                             +'</div>');
+
+                            var naira =  new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(product.price);
+
+                            $('.filterproduct').append('<div class="card p-0 m-2 cardcartpro categoryproduct2" onclick="detailsmodal('+product.id+')" data-bs-toggle="modal" data-bs-target="#detailsModal" style="">'
+                            +'<img src="'+product.main_image+'" class="card-img-top" alt="...">'
+
+                            +(product.percentage > 0 ? '<div class="card-img-overlay">'
+                            +'<span class="position-absolute top-1  translate-middle badge rounded-pill" style="color: red; background-color:rgba(127, 44, 44, 0.337);">'
+                                +'<i class="fas fa-minus"></i>'
+                                +product.percentage+'%'
+                                +'</span>'
+                            +'</div>':'' )
+                            +'<div class="card-body p-1">'
+                                +'<p class="card-text productcard small">'+product.productname+'</p>'
+                                +'<p class="card-text mt-n3 naira small">&#8358;'+naira+'</p>'
+                            +'</div>'
+                           +'</div>');
                        });
                    }
 
                    if(response.status === 201){
-
+                        $('.filterproduct').html('');
+                        $('.filterproduct').append('<div class="col-6 mx-auto rounded">'
+                        +'<h6 class="text-bg-secondary rounded p-3">No product found... Search more product please</h6>'
+                        +'</div>');
                    }
                }
            });
     });
 
+    $('#categoryproductfilterbig').submit(function (e) {
+        e.preventDefault();
 
+           $.ajaxSetup({
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
 
+           });
+            $data = new FormData($('#categoryproductfilterbig')[0]);
+            console.log($data);
 
+            $.ajax({
+               type: "POST",
+               url: "/categoryprodfilter",
+               data: $data,
+               contentType:false,
+               processData:false,
+               success: function (response) {
+                   if(response.status === 200){
+                       $('.catprodfiltered').html('');
 
+                       console.log(response.message);
 
+                       $.each(response.message, function (key, product) {
 
+                            var naira =  new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(product.price);
 
+                            $('.catprodfiltered').append('<div class="card p-0 m-2 cardcartpro categoryproduct2" onclick="detailsmodal('+product.id+')" data-bs-toggle="modal" data-bs-target="#detailsModal" style="">'
+                            +'<img src="'+product.main_image+'" class="card-img-top" alt="...">'
 
+                            +(product.percentage > 0 ? '<div class="card-img-overlay">'
+                            +'<span class="position-absolute top-1  translate-middle badge rounded-pill " style="color: red; background-color:rgba(127, 44, 44, 0.337);">'
+                                +'<i class="fas fa-minus"></i>'
+                                +product.percentage+'%'
+                                +'</span>'
+                            +'</div>':'' )
+                            +'<div class="card-body p-1">'
+                                +'<p class="card-text productcard small">'+product.productname+'</p>'
+                                +'<p class="card-text mt-n3 naira small">&#8358;'+naira+'</p>'
+                            +'</div>'
+                           +'</div>');
+                       });
 
+                   }
 
+                   if(response.status === 201){
+                       $('.catprodfiltered').html('');
+                        $('.catprodfiltered').append('<div class="col-6 mx-auto rounded">'
+                        +'<h6 class="text-bg-secondary rounded p-3">No product found... Search more product please</h6>'
+                        +'</div>');
+                   }
+               }
+           });
+    });
+
+    $('#categoryproductfilterbsmall').submit(function (e) {
+        e.preventDefault();
+
+           $.ajaxSetup({
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               }
+
+           });
+            $data = new FormData($('#categoryproductfilterbsmall')[0]);
+            console.log($data);
+
+            $.ajax({
+               type: "POST",
+               url: "/categoryprodfilter",
+               data: $data,
+               contentType:false,
+               processData:false,
+               success: function (response) {
+                   if(response.status === 200){
+                       $('.catprodfiltered').html('');
+
+                       console.log(response.message);
+
+                       $.each(response.message, function (key, product) {
+
+                            var naira =  new Intl.NumberFormat('en-NG', { maximumSignificantDigits: 3 }).format(product.price);
+
+                            $('.catprodfiltered').append('<div class="card p-0 m-2 categoryproduct2" onclick="detailsmodal('+product.id+')" data-bs-toggle="modal" data-bs-target="#detailsModal" style="">'
+                            +'<img src="'+product.main_image+'" class="card-img-top" alt="...">'
+
+                            +(product.percentage > 0 ? '<div class="card-img-overlay">'
+                            +'<span class="position-absolute top-1  translate-middle badge rounded-pill " style="color: red; background-color:rgba(127, 44, 44, 0.337);">'
+                                +'<i class="fas fa-minus"></i>'
+                                +product.percentage+'%'
+                                +'</span>'
+                            +'</div>':'' )
+                            +'<div class="card-body p-1">'
+                                +'<p class="card-text productcard small">'+product.productname+'</p>'
+                                +'<p class="card-text mt-n3 naira small">&#8358;'+naira+'</p>'
+                            +'</div>'
+                           +'</div>');
+                       });
+
+                   }
+
+                   if(response.status === 201){
+                       $('.catprodfiltered').html('');
+                        $('.catprodfiltered').append('<div class="col-11 mx-auto rounded">'
+                        +'<h6 class="text-bg-secondary rounded p-3">No product found... Search more product please</h6>'
+                        +'</div>');
+                   }
+               }
+           });
+    });
+
+    $('.clear').click(function (e) {
+        e.preventDefault();
+        location.reload();
+    });
 
  });
 
+
+ function closesss(){
+     $('.sidednavv').toggle('slow');
+
+     $('.sidenav').toggle('slow');
+
+     $('.kkhgf').toggleClass('rightside');
+
+     $('.footer').toggleClass('footersubbig');
+
+     $('.catprodfil').toggleClass('col-md-8 col-lg-9');
+
+     $('.cardcartpro').toggleClass('categoryproduct2');
+
+     $('.cardcartpro').toggleClass('catprofilled');
+
+
+
+
+ }
 
 
 

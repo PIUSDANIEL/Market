@@ -25,6 +25,8 @@ Route::get('/',[Productupload::class,'product'])->name('/');
 
 Route::get('subcatproducts/{id}',[Productupload::class,'subcatproducts'])->name('subcatproducts');
 
+Route::post('categoryprodfilter',[Productupload::class,'categoryprodfilter'])->name('categoryprodfilter');
+
 Route::post('filter',[Productupload::class,'filter'])->name('filter');
 
 Route::get('products/{cat}',[Productupload::class,'products'])->name('products');

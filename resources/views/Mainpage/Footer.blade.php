@@ -1,10 +1,9 @@
-    {{-- footer --}}
-    <div class="row footer mt-3 " style="background-color:#6b7280 ;">
 
+</div>
 
-
-
-
+{{-- footer --}}
+<footer class=" mb-0 w-100 footer  " style="background-color:#6b7280 ;">
+    <div class="row footerrow">
         <div class="col-11 col-lg-5 mx-auto my-2 shadow" style="background-color:#00000000 ; border-radius:20px;">
             <p class="text-white submitfilterd">Lorem, ipsum dolor sit amet consectetur adipisicing elit.
             Praesentium et, ex exercitationem nobis minima architecto
@@ -19,8 +18,8 @@
             Magni ad soluta blanditiis saepe?
             </p>
         </div>
-
     </div>
+</footer>
 
 
         <!---jquery---->
@@ -78,6 +77,6 @@
 
             </script>
 
-</div>
+
 </body>
 </html>

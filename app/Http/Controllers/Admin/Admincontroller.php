@@ -70,11 +70,11 @@ class Admincontroller extends Controller
 
         $cat = Validator::make($requ->only('categoryname'),[
 
-            'categoryname'=> 'required|alpha|unique:categories,categoryname',
+            'categoryname'=> 'required|string|unique:categories,categoryname',
         ],[
             'categoryname.unique'=>'This category has already been added!',
             'categoryname.required'=>'Category name is required!',
-            'categoryname.alpha'=>'Category name must be letters only!'
+            'categoryname.string'=>'Category name must be letters only!'
 
         ]);
 
@@ -102,11 +102,11 @@ class Admincontroller extends Controller
 
         $val = Validator::make($req->only('categoryname','id'),[
 
-            'categoryname'=> 'required|alpha|unique:categories,categoryname',
+            'categoryname'=> 'required|string|unique:categories,categoryname',
         ],[
             'categoryname.unique'=>'This category has already been added!',
             'categoryname.required'=>'Category name is required!',
-            'categoryname.alpha'=>'Category name must be letters only!'
+            'categoryname.string'=>'Category name must be letters only!'
 
         ]);
        // dd($req->id);
@@ -138,11 +138,12 @@ class Admincontroller extends Controller
 
         $vali = Validator::make($req->only('subcategoryname','image','category'),[
             'subcategoryname'=>'required|regex:/^[a-zA-Z ]+$/u',
-            'image'=>'required|image|mimes:png,jpg,jpeg,gif,svg|max:2048',
+            'image'=>'required|image|mimes:png|max:2048',
             'category'=>'required|integer'
         ],[
             'subcategoryname.required'=>'sub-category name is required',
-            'category.integer'=>'category is required'
+            'category.integer'=>'category is required',
+            'image.mimes'=>'image must be a png file'
         ]);
 
         if($vali->fails()){
@@ -195,8 +196,10 @@ class Admincontroller extends Controller
         $val = Validator::make($requ->only('id','editsubcategoryname','editimage','category','oldimage'),[
             'id' =>'required|integer',
             'editsubcategoryname'=>'required|regex:/^[a-zA-Z ]+$/u',
-            'editimage'=>'nullable|image|mimes:png,jpg,jpeg,gif,svg|max:2048',
+            'editimage'=>'nullable|image|mimes:png|max:2048',
             'category'=>'required|integer'
+        ],[
+            'editimage.mimes'=>'image must be a png file'
         ]);
 
 
